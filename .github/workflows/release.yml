@@ -18,10 +18,10 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: 24
 
       - name: Build plugin JAR
-        run: chmod +x build_theme.sh && ./build_theme.sh
+        run: chmod +x build.sh && ./build.sh
 
       - name: Get JAR filename
         id: jar
