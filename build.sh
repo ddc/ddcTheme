@@ -10,7 +10,7 @@ pushd "$SCRIPT_DIR" || { log_error "Failed to change to script directory" 1>&2; 
 # ============================================================================
 # Plugin Settings — edit these and run the script to update the plugin
 # ============================================================================
-VERSION="1.0.2"
+VERSION="1.0.3"
 WHATS_NEW="Fixed VCS file status colors and editor scheme auto-apply."
 # ============================================================================
 TITLE="DDC Theme"
