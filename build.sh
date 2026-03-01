@@ -16,7 +16,7 @@ WHATS_NEW="Fixed VCS file status colors and editor scheme auto-apply."
 TITLE="DDC Theme"
 EMAIL="daniel@ddcsoftwares.com"
 VENDOR_URL="https://github.com/ddc/ddcTheme"
-DESCRIPTION="DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, Key Maps."
+DESCRIPTION="DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, and Key Maps."
 ID="com.ddc.theme"
 MIN_JETBRAINS_VERSION="253"
 # ============================================================================
