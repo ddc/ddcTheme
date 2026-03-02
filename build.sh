@@ -50,7 +50,7 @@ if [[ ! -f "$KEYMAP_XML_NAME" ]]; then
 fi
 
 # Step 2: Clean and create build dir
-rm -rf "$BUILD_DIR"
+#rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
 # Step 3: Build new JAR from source files
