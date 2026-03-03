@@ -5,15 +5,14 @@
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-pushd "$SCRIPT_DIR" || { log_error "Failed to change to script directory" 1>&2; exit 1; }
+pushd "$SCRIPT_DIR" > /dev/null || { log_error "Failed to change to script directory" 1>&2; exit 1; }
 
 # ============================================================================
 # Plugin Settings — edit these and run the script to update the plugin
 # ============================================================================
-VERSION="1.0.5"
+VERSION="1.0.6"
 WHATS_NEW=$(cat <<'EOF'
-<li>Renamed plugin name to DDC Theme</li>
-<li>Removed identifier under caret highlight</li>
+<li>Added DDC Softwares Theme Icon</li>
 EOF
 )
 MIN_IDE_VERSION="253"
@@ -66,6 +65,7 @@ mkdir -p "$TMPDIR/META-INF" "$TMPDIR/theme" "$TMPDIR/colors" "$TMPDIR/keymaps"
 cp "$UI_JSON_THEME_NAME" "$TMPDIR/theme/${THEME_JSON}"
 cp "$NEW_ICLS" "$TMPDIR/colors/${EDITOR_SCHEME}.xml"
 cp "$KEYMAP_XML_NAME" "$TMPDIR/keymaps/${KEYMAP}.xml"
+cp "assets/ddcSoftwaresThemesIcon.svg" "$TMPDIR/META-INF/pluginIcon.svg"
 
 cat > "$TMPDIR/META-INF/plugin.xml" << EOF
 <idea-plugin>
@@ -86,11 +86,12 @@ cat > "$TMPDIR/META-INF/plugin.xml" << EOF
 EOF
 
 (cd "$TMPDIR" && jar cfM "$SCRIPT_DIR/$BUILD_DIR/$OUTPUT_PLUGIN_JAR_NAME" META-INF/ theme/ colors/ keymaps/)
-echo "Color scheme: $(basename "$NEW_ICLS")"
-echo "Keymap: $(basename "$KEYMAP_XML_NAME")"
-
 # ============================================================================
-popd || { log_error "Failed to return to previous directory" 1>&2; exit 1; }
 echo
-echo "Done. DDC_Theme.jar v${VERSION}"
+echo -e "\033[1;94m➜\033[0m UI: $(basename "$UI_JSON_THEME_NAME")"
+echo -e "\033[1;94m➜\033[0m Editor: $(basename "$NEW_ICLS")"
+echo -e "\033[1;94m➜\033[0m Keymap: $(basename "$KEYMAP_XML_NAME")"
+echo -e "\033[1;92m✔\033[0m Plugin: ${OUTPUT_PLUGIN_JAR_NAME}"
 echo
+# ============================================================================
+popd > /dev/null || { log_error "Failed to return to previous directory" 1>&2; exit 1; }
