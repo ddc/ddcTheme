@@ -5,25 +5,22 @@
 <!-- List the key changes -->
 
 ## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Breaking change (existing functionality affected)
-- [ ] Refactoring (no functional changes)
+- [ ] UI Theme (`DDC_Theme.json`)
+- [ ] Editor Theme (`DDC_Editor_Theme.icls`)
+- [ ] Key Maps (`DDC_Key_Maps.xml`)
+- [ ] Code Style (`DDC_Code_Style.xml`)
+- [ ] Build script or CI/CD
 - [ ] Documentation
-- [ ] CI/CD or build configuration
-- [ ] Dependencies update
 
 ## Testing
-- [ ] Unit tests added/updated
-- [ ] Integration tests added/updated
-- [ ] All existing tests pass
-- [ ] Manual testing performed
+- [ ] Built JAR with `build.sh`
+- [ ] Installed plugin in IDE and verified changes
+- [ ] Verified UI Theme renders correctly
+- [ ] Verified Editor Theme colors render correctly
 
-## Checklist
-- [ ] Code follows the project's style and conventions
-- [ ] Documentation updated (if applicable)
-- [ ] No new warnings or linter errors introduced
-- [ ] I have considered how this change may affect other services
+## Version Bump
+- [ ] Updated `VERSION` in `build.sh`
+- [ ] Updated `WHATS_NEW` in `build.sh`
 
 ## Reviewer
 - [ ] I understand that by approving this PR, I share responsibility for these changes

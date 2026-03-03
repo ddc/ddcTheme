@@ -1,47 +1,37 @@
 name: Feature Request
-description: Suggest a feature for this library
+description: Suggest a change or addition to the theme
 labels: feature request
 body:
   - type: input
     attributes:
       label: Summary
-      description: >
-        A short summary of what your feature request is.
+      description: A short summary of your request
     validations:
       required: true
   - type: dropdown
     attributes:
-      multiple: false
-      label: What is the feature request for?
+      multiple: true
+      label: Related Component
       options:
-        - The core library
-        - The documentation
+        - UI Theme
+        - Editor Theme
+        - Key Maps
+        - Code Style
     validations:
       required: true
   - type: textarea
     attributes:
-      label: The Problem
+      label: Description
       description: >
-        What problem is your feature trying to solve?
-        What becomes easier or possible when this feature is implemented?
+        What would you like to change or add?
+        Why would this improvement be useful?
     validations:
       required: true
   - type: textarea
     attributes:
-      label: The Ideal Solution
-      description: >
-        What is your ideal solution to the problem?
-        What would you like this feature to do?
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: The Current Solution
-      description: >
-        What is the current solution to the problem, if any?
-    validations:
-      required: false
+      label: Screenshot / Example
+      description: If applicable, include a screenshot or reference showing the desired look or behavior.
   - type: textarea
     attributes:
       label: Additional Context
-      description: If there is anything else to say, please do so here.
+      description: Any other relevant information.
