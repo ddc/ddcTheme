@@ -23,8 +23,8 @@
 
 <p align="center">📦 <b><a href="https://plugins.jetbrains.com/plugin/30414-ddc-theme">Install from JetBrains Marketplace</a></b> 📦 </p>
 
-
 # Table of Contents
+
 - [Screenshot](#screenshot)
 - [Features](#features)
 - [Installation](#installation)
@@ -33,33 +33,34 @@
     - [Manual Installation](#manual-installation)
 - [Building](#building)
 - [Version Control File Status Colors](#version-control-file-status-colors)
-- [Support](#support)
 - [License](#license)
-
-
+- [Support](#support)
+- 
 # Screenshot
 <p align="left">
   <img src="assets/example_bash.png" alt="Editor Theme">
 </p>
 
-
 # Features
-| Component     | File                    | Description                                               |
-|---------------|-------------------------|-----------------------------------------------------------|
-| UI Theme      | `DDC_Theme.json`        | Dark UI with custom backgrounds, borders, and popups      |
-| Editor Scheme | `DDC_Editor_Theme.icls` | Syntax highlighting and editor colors                     |
-| VCS Colors    | `DDC_Editor_Theme.icls` | Custom file status colors for version control             |
-| Code Style    | `DDC_Code_Style.xml`    | Formatting and indentation settings (manual install only) |
-| Key Maps      | `DDC_Key_Maps.xml`      | Custom keyboard shortcuts                                 |
 
+| Component     | File                    | Description                                                 |
+|---------------|-------------------------|-------------------------------------------------------------|
+| UI Theme      | `DDC_Theme.json`        | Dark UI with custom backgrounds, borders, and popups        |
+| Editor Scheme | `DDC_Editor_Theme.icls` | Syntax highlighting and editor colors                       |
+| VCS Colors    | `DDC_Editor_Theme.icls` | Custom file status colors for version control               |
+| Code Style    | `DDC_Code_Style.xml`    | Formatting and indentation settings (manual install only)   |
+| Window Layout | `DDC_Window_Layout.xml` | Tool window arrangement and positions (manual install only) |
+| Key Maps      | `DDC_Key_Maps.xml`      | Custom keyboard shortcuts                                   |
 
 # Installation
 ## From Marketplace
+
 1. In your JetBrains IDE, go to **Settings > Plugins > Marketplace**
 2. Search for **DDC Theme**
 3. Click **Install** and restart the IDE
 
 ## From Plugin JAR
+
 1. Download the latest `DDC_Jetbrains_Theme_*.jar` from [Releases](https://github.com/ddc/JetbrainsTheme/releases)
 2. Go to **Settings > Plugins > Install Plugin from Disk...**
 3. Select the downloaded `.jar` file and restart the IDE
@@ -69,24 +70,35 @@ Copy individual files to your JetBrains config directory:
 
 | File                    | Destination          |
 |-------------------------|----------------------|
+| `DDC_Theme.json`        | `config/options/`    |
 | `DDC_Editor_Theme.icls` | `config/colors/`     |
-| `DDC_Code_Style.xml`    | `config/codestyles/` |
 | `DDC_Key_Maps.xml`      | `config/keymaps/`    |
+| `DDC_Code_Style.xml`    | `config/codestyles/` |
+| `DDC_Window_Layout.xml` | `config/options/`    |
 
 > **Note:**
-> After installing the plugin (Marketplace or JAR), the UI theme, editor scheme, and keymap are included. Code Style is
-> **not** bundled in the plugin and must be installed manually by copying `DDC_Code_Style.xml` to `config/codestyles/`.
+> After installing the plugin (Marketplace or JAR), the UI theme, editor scheme, and keymap are included. Code Style and
+> Window Layout is **not** bundled in the plugin and must be installed manually.
+
+### Code Style Installation
+1. Copy `DDC_Code_Style.xml` to `config/codestyles/`
+2. Go to **Settings > Editor > Code Style** and select **DDC Code Style**
+
+### Window Layout Installation
+1. Close the IDE
+2. Copy `DDC_Window_Layout.xml` to `config/options/` and rename it to `window.layouts.xml`
+3. Start the IDE
+4. Go to **Window > Layouts** and select **DDC Window Layout**
 >
 > **Note:** After plugin updates, you may need to reselect the UI Theme, Editor Theme, and Key Maps in Settings.
 
-
 # Building
+
 ```bash
 ./build.sh
 ```
 
 The script builds `DDC_Theme_<version>.jar` inside the `build/` directory.
-
 
 # Version Control File Status Colors
 <table>
@@ -124,13 +136,12 @@ The script builds `DDC_Theme_<version>.jar` inside the `build/` directory.
 </tr>
 </table>
 
+# License
+Released under the [Apache 2.0](LICENSE)
 
 # Support
 If you find this project helpful, consider supporting development:
+
 - [GitHub Sponsor](https://github.com/sponsors/ddc)
 - [ko-fi](https://ko-fi.com/ddcsta)
 - [PayPal](https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ)
-
-
-# License
-Released under the [Apache 2.0](LICENSE)
