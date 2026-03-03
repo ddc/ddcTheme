@@ -11,14 +11,12 @@ pushd "$SCRIPT_DIR" || { log_error "Failed to change to script directory" 1>&2; 
 # Plugin Settings — edit these and run the script to update the plugin
 # ============================================================================
 VERSION="1.0.5"
-WHATS_NEW=$(cat <<'NOTES'
-<ul>
-  <li>Renamed plugin name to DDC Theme</li>
-  <li>Note: after plugin updates, you may need to reselect the UI Theme, Editor Theme, and Key Maps in Settings</li>
-</ul>
-NOTES
+WHATS_NEW=$(cat <<'EOF'
+<li>Renamed plugin name to DDC Theme</li>
+<li>Removed identifier under caret highlight</li>
+EOF
 )
-MIN_JETBRAINS_VERSION="253"
+MIN_IDE_VERSION="253"
 # ============================================================================
 #  DO NOT CHANGE VARIABLES BELLOW
 # ============================================================================
@@ -33,6 +31,7 @@ EDITOR_ICLS_THEME_NAME="DDC_Editor_Theme.icls"
 KEYMAP_XML_NAME="DDC_Key_Maps.xml"
 BUILD_DIR="build"
 OUTPUT_PLUGIN_JAR_NAME="DDC_Jetbrains_Theme_v${VERSION}.jar"
+WHATS_NEW_PERSISTENT="<li><b>Note:</b> after plugin updates, you may need to reselect the UI Theme, Editor Theme, and Key Maps in Settings</li>"
 # ============================================================================
 THEME_JSON="$(basename "${UI_JSON_THEME_NAME}" .json | tr '_' ' ').theme.json"
 EDITOR_SCHEME="$(basename "${EDITOR_ICLS_THEME_NAME}" .icls | tr '_' ' ')"
@@ -75,8 +74,8 @@ cat > "$TMPDIR/META-INF/plugin.xml" << EOF
   <version>${VERSION}</version>
   <vendor email="${EMAIL}" url="${VENDOR_URL}">DDC</vendor>
   <description><![CDATA[${DESCRIPTION}]]></description>
-  <change-notes><![CDATA[${WHATS_NEW}]]></change-notes>
-  <idea-version since-build="${MIN_JETBRAINS_VERSION}"/>
+  <change-notes><![CDATA[<ul>${WHATS_NEW}${WHATS_NEW_PERSISTENT}</ul>]]></change-notes>
+  <idea-version since-build="${MIN_IDE_VERSION}"/>
   <depends>com.intellij.modules.platform</depends>
   <extensions defaultExtensionNs="com.intellij">
     <themeProvider id="${ID}" path="/theme/${THEME_JSON}"/>

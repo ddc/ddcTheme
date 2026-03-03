@@ -1132,10 +1132,7 @@
       </value>
     </option>
     <option name="IDENTIFIER_UNDER_CARET_ATTRIBUTES">
-      <value>
-        <option name="BACKGROUND" value="33e5d" />
-        <option name="ERROR_STRIPE_COLOR" value="4d6168" />
-      </value>
+      <value />
     </option>
     <option name="IGNORE.BRACKET">
       <value>
@@ -3664,10 +3661,7 @@
       </value>
     </option>
     <option name="WRITE_IDENTIFIER_UNDER_CARET_ATTRIBUTES">
-      <value>
-        <option name="BACKGROUND" value="4a4d50" />
-        <option name="ERROR_STRIPE_COLOR" value="4d6168" />
-      </value>
+      <value />
     </option>
     <option name="WRITE_SEARCH_RESULT_ATTRIBUTES">
       <value>
