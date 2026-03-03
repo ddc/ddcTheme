@@ -18,13 +18,15 @@ WHATS_NEW=$(cat <<'NOTES'
 </ul>
 NOTES
 )
+MIN_JETBRAINS_VERSION="253"
+# ============================================================================
+#  DO NOT CHANGE VARIABLES BELLOW
 # ============================================================================
 TITLE="DDC Theme"
-EMAIL="daniel@ddcsoftwares.com"
-VENDOR_URL="https://github.com/ddc/JetbrainsTheme"
 DESCRIPTION="DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, and Key Maps."
+VENDOR_URL="https://github.com/ddc/JetbrainsTheme"
+EMAIL="daniel@ddcsoftwares.com"
 ID="com.ddc.theme"
-MIN_JETBRAINS_VERSION="253"
 # ============================================================================
 UI_JSON_THEME_NAME="DDC_Theme.json"
 EDITOR_ICLS_THEME_NAME="DDC_Editor_Theme.icls"
