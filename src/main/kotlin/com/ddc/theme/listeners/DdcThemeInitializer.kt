@@ -1,7 +1,6 @@
 package com.ddc.theme.listeners
 
 import com.ddc.theme.settings.DdcThemeSettings
-import com.intellij.ide.AppLifecycleListener
 import com.intellij.ide.plugins.PluginManagerCore
 import com.intellij.ide.ui.LafManager
 import com.intellij.ide.util.PropertiesComponent
@@ -12,15 +11,21 @@ import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.keymap.ex.KeymapManagerEx
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.psi.impl.source.codeStyle.CodeStyleSchemesImpl
 import com.intellij.toolWindow.ToolWindowDefaultLayoutManager
-import com.intellij.toolWindow.ToolWindowLayoutStorageManagerState
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.buildJsonObject
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.put
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
 
-class DdcThemeInitializer : AppLifecycleListener {
+class DdcThemeInitializer : ProjectActivity {
     companion object {
         private const val PLUGIN_ID = "com.ddc.theme"
         private const val LAST_VERSION_KEY = "ddc.theme.lastNotifiedVersion"
@@ -30,9 +35,16 @@ class DdcThemeInitializer : AppLifecycleListener {
         private const val KEYMAP_NAME = "DDC Key Maps"
         private const val CODE_STYLE_FILE = "DDC_Code_Style.xml"
         private const val WINDOW_LAYOUT_NAME = "DDC Window Layout"
+        private const val LAYOUT_CONFIG_FILE = "window.default.layout.xml"
+
+        @Volatile
+        private var initialized = false
     }
 
-    override fun appStarted() {
+    override suspend fun execute(project: Project) {
+        if (initialized) return
+        initialized = true
+
         val plugin = PluginManagerCore.getPlugin(PluginId.getId(PLUGIN_ID)) ?: return
         val currentVersion = plugin.version
         val pluginDir = plugin.pluginPath.let { if (Files.isDirectory(it)) it else it.parent }
@@ -85,8 +97,10 @@ class DdcThemeInitializer : AppLifecycleListener {
         try {
             val lafManager = LafManager.getInstance()
             if (lafManager.currentUIThemeLookAndFeel?.name == THEME_NAME) return
-            val ddcTheme = lafManager.installedThemes.find { it.name == THEME_NAME } ?: return
-            lafManager.setCurrentLookAndFeel(ddcTheme, false)
+            val ddcTheme = javax.swing.UIManager.getInstalledLookAndFeels()
+                .filterIsInstance<com.intellij.ide.ui.laf.UIThemeLookAndFeelInfo>()
+                .find { it.name == THEME_NAME } ?: return
+            lafManager.setCurrentUIThemeLookAndFeel(ddcTheme)
             lafManager.updateUI()
         } catch (_: Exception) {
         }
@@ -132,17 +146,40 @@ class DdcThemeInitializer : AppLifecycleListener {
 
             val resource = javaClass.getResourceAsStream("/extras/DDC_Window_Layout.xml") ?: return
             val ddcXml = resource.use { it.bufferedReader().readText() }
-            val ddcJson = extractJsonFromXml(ddcXml) ?: return
+            val ddcJsonStr = extractJsonFromXml(ddcXml) ?: return
 
-            val json = Json { ignoreUnknownKeys = true }
-            val ddcState = json.decodeFromString(ToolWindowLayoutStorageManagerState.serializer(), ddcJson)
-            val ddcLayoutEntry = ddcState.layouts[WINDOW_LAYOUT_NAME] ?: return
+            val json = Json { ignoreUnknownKeys = true; prettyPrint = true }
+            val ddcState = json.parseToJsonElement(ddcJsonStr).jsonObject
+            val ddcLayouts = ddcState["layouts"]?.jsonObject ?: return
+            val ddcLayoutEntry = ddcLayouts[WINDOW_LAYOUT_NAME] ?: return
 
-            val currentState = layoutManager.state
-            val newLayouts = currentState.layouts.toMutableMap()
-            newLayouts[WINDOW_LAYOUT_NAME] = ddcLayoutEntry
-            val newState = currentState.copy(layouts = newLayouts)
-            layoutManager.loadState(newState)
+            val configFile = Path.of(PathManager.getOptionsPath(), LAYOUT_CONFIG_FILE)
+            val existingState = if (Files.exists(configFile)) {
+                val existingXml = Files.readString(configFile)
+                val existingJsonStr = extractJsonFromXml(existingXml)
+                if (existingJsonStr != null) {
+                    json.parseToJsonElement(existingJsonStr).jsonObject
+                } else {
+                    JsonObject(emptyMap())
+                }
+            } else {
+                JsonObject(emptyMap())
+            }
+
+            val existingLayouts = existingState["layouts"]?.jsonObject?.toMutableMap() ?: mutableMapOf()
+            existingLayouts[WINDOW_LAYOUT_NAME] = ddcLayoutEntry
+
+            val newState = buildJsonObject {
+                existingState.forEach { (key, value) ->
+                    if (key != "layouts") put(key, value)
+                }
+                put("layouts", JsonObject(existingLayouts))
+            }
+
+            val mergedJson = json.encodeToString(JsonElement.serializer(), newState)
+            val configXml = "<application>\n  <component name=\"ToolWindowLayout\"><![CDATA[$mergedJson]]></component>\n</application>\n"
+            Files.createDirectories(configFile.parent)
+            Files.writeString(configFile, configXml)
         } catch (_: Exception) {
         }
     }

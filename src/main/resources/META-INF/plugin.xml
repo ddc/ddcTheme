@@ -4,27 +4,23 @@
     <vendor email="daniel@ddcsoftwares.com" url="https://github.com/ddc/JetbrainsTheme">DDC Softwares</vendor>
     <description><![CDATA[
         DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, Key Maps, Code Style, Window Layout, and Selection Occurrence Highlighting.
-        <br/><br/>
+        <br/>
+        <a href="https://github.com/ddc/JetbrainsTheme">GitHub</a> |
+        <a href="https://github.com/sponsors/ddc">GitHub Sponsors</a> |
+        <a href="https://ko-fi.com/ddcsta">Ko-fi</a> |
+        <a href="https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ">PayPal</a>
+        <br/>
         <b>Getting Started</b><br/>
         UI Theme, Editor Theme, and Key Maps apply automatically after install and restart.
-        <br/><br/>
+        <br/>
         Optional extras (installed but not activated):
         <ul>
             <li><b>Window Layout</b> — Window > Layouts > DDC Window Layout > <b>Restore</b></li>
             <li><b>Code Style</b> — Settings > Editor > Code Style > select <b>DDC Code Style</b></li>
             <li><b>Selection Highlighting</b> — Settings > Tools > DDC Theme</li>
         </ul>
-        <br/>
-        <a href="https://github.com/ddc/JetbrainsTheme">GitHub</a> |
-        <a href="https://github.com/sponsors/ddc">GitHub Sponsors</a> |
-        <a href="https://ko-fi.com/ddcsta">Ko-fi</a> |
-        <a href="https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ">PayPal</a>
     ]]></description>
     <depends>com.intellij.modules.platform</depends>
-    <applicationListeners>
-        <listener class="com.ddc.theme.listeners.DdcThemeInitializer"
-                  topic="com.intellij.ide.AppLifecycleListener"/>
-    </applicationListeners>
     <extensions defaultExtensionNs="com.intellij">
         <bundledColorScheme path="/colors/DDC Editor Theme"/>
         <bundledKeymap file="DDC Key Maps.xml"/>
@@ -32,6 +28,7 @@
         <applicationConfigurable parentId="tools" instance="com.ddc.theme.settings.DdcThemeConfigurable" id="com.ddc.theme.settings" displayName="DDC Theme"/>
         <applicationService serviceImplementation="com.ddc.theme.settings.DdcThemeSettings"/>
         <notificationGroup id="DDC Theme Notifications" displayType="STICKY_BALLOON"/>
+        <postStartupActivity implementation="com.ddc.theme.listeners.DdcThemeInitializer"/>
         <postStartupActivity implementation="com.ddc.theme.listeners.SelectionHighlightListener"/>
         <postStartupActivity implementation="com.ddc.theme.listeners.PluginCleanupListener"/>
     </extensions>
