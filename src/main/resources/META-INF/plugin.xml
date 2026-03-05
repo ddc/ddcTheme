@@ -1,0 +1,21 @@
+<idea-plugin require-restart="true">
+    <id>com.ddc.theme</id>
+    <name>DDC Theme</name>
+    <vendor email="daniel@ddcsoftwares.com" url="https://github.com/ddc/JetbrainsTheme">DDC</vendor>
+    <description><![CDATA[DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, and Key Maps.]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <themeProvider id="com.ddc.theme" path="/theme/DDC Theme.theme.json"/>
+        <bundledColorScheme path="/colors/DDC Editor Theme"/>
+        <bundledKeymap file="DDC Key Maps.xml"/>
+        <applicationConfigurable parentId="tools" instance="com.ddc.theme.settings.DdcThemeConfigurable" id="com.ddc.theme.settings" displayName="DDC Theme"/>
+        <applicationService serviceImplementation="com.ddc.theme.settings.DdcThemeSettings"/>
+        <notificationGroup id="DDC Theme Notifications" displayType="STICKY_BALLOON"/>
+        <postStartupActivity implementation="com.ddc.theme.listeners.SelectionHighlightListener"/>
+        <postStartupActivity implementation="com.ddc.theme.activities.WhatsNewNotificationActivity"/>
+    </extensions>
+    <applicationListeners>
+        <listener class="com.ddc.theme.listeners.PluginCleanupListener"
+                  topic="com.intellij.ide.plugins.DynamicPluginListener"/>
+    </applicationListeners>
+</idea-plugin>

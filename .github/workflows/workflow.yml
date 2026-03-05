@@ -1,12 +1,10 @@
-name: Build and Release
+name: CI/CD Pipeline
 
 on:
+  pull_request:
   push:
     tags:
       - 'v*'
-
-env:
-  PLUGIN_NAME: DDC_Theme
 
 permissions:
   contents: write
@@ -21,17 +19,25 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 24
+          java-version: 21
 
-      - name: Build plugin JAR
-        run: chmod +x build.sh && ./build.sh
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
 
-      - name: Get JAR filename
-        id: jar
-        run: echo "file=$(ls build/${PLUGIN_NAME}_*.jar)" >> "$GITHUB_OUTPUT"
+      - name: Build plugin
+        run: ./gradlew buildPlugin
+
+      - name: Verify plugin
+        run: ./gradlew verifyPlugin
+
+      - name: Get artifact filename
+        if: startsWith(github.ref, 'refs/tags/')
+        id: artifact
+        run: echo "file=$(ls build/distributions/*.zip)" >> "$GITHUB_OUTPUT"
 
       - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ steps.jar.outputs.file }}
+          files: ${{ steps.artifact.outputs.file }}
           generate_release_notes: true
