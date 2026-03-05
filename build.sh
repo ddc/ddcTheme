@@ -1,97 +1,53 @@
 #!/usr/bin/env bash
-# Build DDC_Theme.jar plugin.
-#
+# Build DDC Theme plugin
 # https://plugins.jetbrains.com/plugin/30414-ddc-theme
 
 set -euo pipefail
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-pushd "$SCRIPT_DIR" > /dev/null || { log_error "Failed to change to script directory" 1>&2; exit 1; }
 
 # ============================================================================
 # Plugin Settings — edit these and run the script to update the plugin
 # ============================================================================
-VERSION="1.0.6"
+VERSION="1.0.7"
+MIN_PLATFORM_VERSION="2025.3.3"
 WHATS_NEW=$(cat <<'EOF'
-<li>Added DDC Softwares Theme Icon</li>
+<ul>
+<li>Window Layout available - Window > Layouts > DDC Window Layout</li>
+<li>Code Style available - Settings > Editor > Code Style > DDC Code Style</li>
+<li>Text selection highlighting - all matching text is highlighted when you select a word (disabled by default)</li>
+</ul>
+
 EOF
 )
-MIN_IDE_VERSION="253"
 # ============================================================================
-#  DO NOT CHANGE VARIABLES BELLOW
+JAVA_HOME="$HOME/Programs/java/jdk-21"
+GRADLE_BUILD_JVM_ARGS="-Xmx2g"
 # ============================================================================
-TITLE="DDC Theme"
-DESCRIPTION="DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, and Key Maps."
-VENDOR_URL="https://github.com/ddc/JetbrainsTheme"
-EMAIL="daniel@ddcsoftwares.com"
-ID="com.ddc.theme"
-# ============================================================================
-UI_JSON_THEME_NAME="DDC_Theme.json"
-EDITOR_ICLS_THEME_NAME="DDC_Editor_Theme.icls"
-KEYMAP_XML_NAME="DDC_Key_Maps.xml"
-BUILD_DIR="build"
-OUTPUT_PLUGIN_JAR_NAME="DDC_Jetbrains_Theme_v${VERSION}.jar"
-WHATS_NEW_PERSISTENT="<li><b>Note:</b> after plugin updates, you may need to reselect the UI Theme, Editor Theme, and Key Maps in Settings</li>"
-# ============================================================================
-THEME_JSON="$(basename "${UI_JSON_THEME_NAME}" .json | tr '_' ' ').theme.json"
-EDITOR_SCHEME="$(basename "${EDITOR_ICLS_THEME_NAME}" .icls | tr '_' ' ')"
-KEYMAP="$(basename "${KEYMAP_XML_NAME}" .xml | tr '_' ' ')"
-NEW_ICLS="${1:-$EDITOR_ICLS_THEME_NAME}"
-# ============================================================================
+cd "$(dirname "${BASH_SOURCE[0]}")"
+export JAVA_HOME
 
-TMPDIR=$(mktemp -d)
-trap 'rm -rf "$TMPDIR"' EXIT
+# Derive since-build from platform version (e.g. 2025.3.3 → 253)
+SINCE_BUILD="$(echo "$MIN_PLATFORM_VERSION" | sed -E 's/^20([0-9]{2})\.([0-9]+).*/\1\2/')"
 
-# Verify all source files exist
-if [[ ! -f "$UI_JSON_THEME_NAME" ]]; then
-    echo "Error: $UI_JSON_THEME_NAME not found"
-    exit 1
-fi
-if [[ ! -f "$NEW_ICLS" ]]; then
-    echo "Error: $NEW_ICLS not found"
-    exit 1
-fi
-if [[ ! -f "$KEYMAP_XML_NAME" ]]; then
-    echo "Error: $KEYMAP_XML_NAME not found"
-    exit 1
-fi
+# Write settings into gradle.properties so Gradle picks them up
+sed -i "s/^pluginVersion = .*/pluginVersion = ${VERSION}/" gradle.properties
+sed -i "s/^pluginSinceBuild = .*/pluginSinceBuild = ${SINCE_BUILD}/" gradle.properties
+sed -i "s/^platformVersion = .*/platformVersion = ${MIN_PLATFORM_VERSION}/" gradle.properties
+sed -i "s/^org.gradle.jvmargs = .*/org.gradle.jvmargs = ${GRADLE_BUILD_JVM_ARGS}/" gradle.properties
 
-# Step 2: Clean and create build dir
-#rm -rf "$BUILD_DIR"
-mkdir -p "$BUILD_DIR"
+# Write change notes for Gradle to inject into plugin.xml and in-IDE notification
+echo "$WHATS_NEW" > .whats_new.html
 
-# Step 3: Build new JAR from source files
-mkdir -p "$TMPDIR/META-INF" "$TMPDIR/theme" "$TMPDIR/colors" "$TMPDIR/keymaps"
+./gradlew buildPlugin "$@"
 
-cp "$UI_JSON_THEME_NAME" "$TMPDIR/theme/${THEME_JSON}"
-cp "$NEW_ICLS" "$TMPDIR/colors/${EDITOR_SCHEME}.xml"
-cp "$KEYMAP_XML_NAME" "$TMPDIR/keymaps/${KEYMAP}.xml"
-cp "assets/ddcSoftwaresThemesIcon.svg" "$TMPDIR/META-INF/pluginIcon.svg"
-
-cat > "$TMPDIR/META-INF/plugin.xml" << EOF
-<idea-plugin>
-  <id>${ID}</id>
-  <name>${TITLE}</name>
-  <version>${VERSION}</version>
-  <vendor email="${EMAIL}" url="${VENDOR_URL}">DDC</vendor>
-  <description><![CDATA[${DESCRIPTION}]]></description>
-  <change-notes><![CDATA[<ul>${WHATS_NEW}${WHATS_NEW_PERSISTENT}</ul>]]></change-notes>
-  <idea-version since-build="${MIN_IDE_VERSION}"/>
-  <depends>com.intellij.modules.platform</depends>
-  <extensions defaultExtensionNs="com.intellij">
-    <themeProvider id="${ID}" path="/theme/${THEME_JSON}"/>
-    <bundledColorScheme path="/colors/${EDITOR_SCHEME}"/>
-    <bundledKeymap file="${KEYMAP}.xml"/>
-  </extensions>
-</idea-plugin>
-EOF
-
-(cd "$TMPDIR" && jar cfM "$SCRIPT_DIR/$BUILD_DIR/$OUTPUT_PLUGIN_JAR_NAME" META-INF/ theme/ colors/ keymaps/)
+# Keep only the final zip in build directory
+ZIP_FILE="DDC-Theme-${VERSION}.zip"
+mv "build/distributions/${ZIP_FILE}" build
+rm -rf build/classes build/distributions build/generated build/instrumented \
+       build/libs build/reports build/resources build/tmp build/kotlin \
+       build/idea-sandbox .gradle .intellijPlatform .kotlin .whats_new.html \
+       gradlew.bat
 # ============================================================================
 echo
-echo -e "\033[1;94m➜\033[0m UI: $(basename "$UI_JSON_THEME_NAME")"
-echo -e "\033[1;94m➜\033[0m Editor: $(basename "$NEW_ICLS")"
-echo -e "\033[1;94m➜\033[0m Keymap: $(basename "$KEYMAP_XML_NAME")"
-echo -e "\033[1;92m✔\033[0m Plugin: ${OUTPUT_PLUGIN_JAR_NAME}"
+echo -e "\033[1;92m✔\033[0m Plugin: build/${ZIP_FILE}"
 echo
 # ============================================================================
-popd > /dev/null || { log_error "Failed to return to previous directory" 1>&2; exit 1; }

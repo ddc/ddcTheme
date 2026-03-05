@@ -9,6 +9,7 @@
 - [ ] Editor Theme (`DDC_Editor_Theme.icls`)
 - [ ] Key Maps (`DDC_Key_Maps.xml`)
 - [ ] Code Style (`DDC_Code_Style.xml`)
+- [ ] Window Layout (`DDC_Window_Layout.xml`)
 - [ ] Build script or CI/CD
 - [ ] Documentation
 

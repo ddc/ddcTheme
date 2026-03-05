@@ -13,6 +13,11 @@
           "isShowStripeButton": false
         },
         {
+          "id": "AI Playground",
+          "isShowStripeButton": false,
+          "isSplit": true
+        },
+        {
           "id": "Django.Structure",
           "isShowStripeButton": false,
           "isSplit": true
@@ -112,8 +117,6 @@
           "id": "Terminal",
           "order": 0,
           "anchor": "BOTTOM",
-          "isActiveOnStart": true,
-          "isVisible": true,
           "weight": 0.5058453,
           "sideWeight": 0.50020176
         },
@@ -166,56 +169,56 @@
           "weight": 0.4089928
         },
         {
-          "id": "Python Console",
+          "id": "PythonProcessOutput",
           "order": 8,
+          "anchor": "BOTTOM",
+          "weight": 0.32958633
+        },
+        {
+          "id": "Python Console",
+          "order": 9,
           "anchor": "BOTTOM",
           "weight": 0.22098854
         },
         {
           "id": "Python Packages",
-          "order": 9,
+          "order": 10,
           "anchor": "BOTTOM",
           "weight": 0.3471223
         },
         {
-          "id": "PythonProcessOutput",
-          "order": 10,
-          "anchor": "BOTTOM",
-          "weight": 0.32985613
-        },
-        {
           "id": "SonarLint",
-          "order": 11,
+          "order": 12,
           "anchor": "BOTTOM",
           "weight": 0.45666188
         },
         {
           "id": "SonarQube for IDE",
-          "order": 12,
+          "order": 13,
           "anchor": "BOTTOM",
           "weight": 0.56294966
         },
         {
           "id": "Problems View",
-          "order": 13,
+          "order": 14,
           "anchor": "BOTTOM",
           "weight": 0.32985613
         },
         {
           "id": "Find",
-          "order": 14,
+          "order": 15,
           "anchor": "BOTTOM",
           "isShowStripeButton": false,
           "weight": 0.46079138
         },
         {
           "id": "GitHub Copilot MCP Log",
-          "order": 15,
+          "order": 16,
           "anchor": "BOTTOM"
         },
         {
           "id": "Snyk",
-          "order": 16,
+          "order": 17,
           "anchor": "BOTTOM",
           "weight": 0.35935253
         },
@@ -304,7 +307,7 @@
       "unifiedWeights": {
         "top": 0.33,
         "left": 0.119384766,
-        "bottom": 0.5058453,
+        "bottom": 0.32958633,
         "right": 0.3298828
       }
     }

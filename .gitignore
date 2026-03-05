@@ -1,4 +1,7 @@
 .idea/
-bkp/
+.gradle/
+.intellijPlatform/
+.kotlin/
+.whats_new.html
 build/
-META-INF/
+gradlew.bat

@@ -3,7 +3,7 @@
   "dark": true,
   "author": "DDC",
   "parentTheme": "ExperimentalDark",
-  "editorScheme": "/colors/DDC Editor Theme",
+  "editorScheme": "DDC Editor Theme",
   "colors": {
     "Gray3": "#393B40",
     "Gray2.5": "#323438",

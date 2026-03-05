@@ -19,7 +19,7 @@
     <a href="https://actions-badge.atrox.dev/ddc/JetbrainsTheme/goto?ref=master"><img src="https://img.shields.io/endpoint.svg?url=https%3A//actions-badge.atrox.dev/ddc/JetbrainsTheme/badge?ref=master&label=build&logo=github&style=plastic" alt="Build Status"/></a>
 </p>
 
-<p align="center">A dark theme for JetBrains IDEs based on <a href="https://github.com/atom/atom/tree/master/packages/one-dark-ui">Atom One Dark</a> colors.<br>Includes UI Theme, Editor Theme, VCS Colors, and Key Maps.</p>
+<p align="center">A dark theme for JetBrains IDEs based on <a href="https://github.com/atom/atom/tree/master/packages/one-dark-ui">Atom One Dark</a> colors.<br>Includes UI Theme, Editor Theme, VCS Colors, Key Maps, Code Style, Window Layout, and Selection Occurrence Highlighting.</p>
 
 <p align="center">📦 <b><a href="https://plugins.jetbrains.com/plugin/30414-ddc-theme">Install from JetBrains Marketplace</a></b> 📦 </p>
 
@@ -29,13 +29,13 @@
 - [Features](#features)
 - [Installation](#installation)
     - [From Marketplace](#from-marketplace)
-    - [From Plugin JAR](#from-plugin-jar)
-    - [Manual Installation](#manual-installation)
+    - [From Plugin ZIP](#from-plugin-zip)
+- [Getting Started](#getting-started)
 - [Building](#building)
 - [Version Control File Status Colors](#version-control-file-status-colors)
 - [License](#license)
 - [Support](#support)
-- 
+
 # Screenshot
 <p align="left">
   <img src="assets/example_bash.png" alt="Editor Theme">
@@ -43,14 +43,16 @@
 
 # Features
 
-| Component     | File                    | Description                                                 |
-|---------------|-------------------------|-------------------------------------------------------------|
-| UI Theme      | `DDC_Theme.json`        | Dark UI with custom backgrounds, borders, and popups        |
-| Editor Scheme | `DDC_Editor_Theme.icls` | Syntax highlighting and editor colors                       |
-| VCS Colors    | `DDC_Editor_Theme.icls` | Custom file status colors for version control               |
-| Code Style    | `DDC_Code_Style.xml`    | Formatting and indentation settings (manual install only)   |
-| Window Layout | `DDC_Window_Layout.xml` | Tool window arrangement and positions (manual install only) |
-| Key Maps      | `DDC_Key_Maps.xml`      | Custom keyboard shortcuts                                   |
+| Component                   | Description                                                                                                    |
+|-----------------------------|----------------------------------------------------------------------------------------------------------------|
+| UI Theme                    | Dark UI with custom backgrounds, borders, and popups                                                           |
+| Editor Scheme               | Syntax highlighting and editor colors                                                                          |
+| VCS Colors                  | Custom file status colors for version control                                                                  |
+| Key Maps                    | Custom keyboard shortcuts                                                                                      |
+| Code Style                  | Formatting and indentation settings for multiple languages                                                     |
+| Window Layout               | Tool window arrangement and positions                                                                          |
+| Selection Highlighting      | Highlights all occurrences of selected text (disabled by default — enable in **Settings > Tools > DDC Theme**) |
+| Install/Update Notification | Shows what's new on first install or after an update                                                           |
 
 # Installation
 ## From Marketplace
@@ -59,46 +61,35 @@
 2. Search for **DDC Theme**
 3. Click **Install** and restart the IDE
 
-## From Plugin JAR
+## From Plugin ZIP
 
-1. Download the latest `DDC_Jetbrains_Theme_*.jar` from [Releases](https://github.com/ddc/JetbrainsTheme/releases)
+1. Download the latest `DDC-Theme-*.zip` from [Releases](https://github.com/ddc/JetbrainsTheme/releases)
 2. Go to **Settings > Plugins > Install Plugin from Disk...**
-3. Select the downloaded `.jar` file and restart the IDE
+3. Select the downloaded `.zip` file and restart the IDE
 
-## Manual Installation
-Copy individual files to your JetBrains config directory:
+# Getting Started
 
-| File                    | Destination          |
-|-------------------------|----------------------|
-| `DDC_Theme.json`        | `config/options/`    |
-| `DDC_Editor_Theme.icls` | `config/colors/`     |
-| `DDC_Key_Maps.xml`      | `config/keymaps/`    |
-| `DDC_Code_Style.xml`    | `config/codestyles/` |
-| `DDC_Window_Layout.xml` | `config/options/`    |
+After install and restart, the **UI Theme**, **Editor Theme**, and **Key Maps** are applied automatically.
+The following extras are installed but not activated — enable them if you'd like:
 
-> **Note:**
-> After installing the plugin (Marketplace or JAR), the UI theme, editor scheme, and keymap are included. Code Style and
-> Window Layout is **not** bundled in the plugin and must be installed manually.
+| Extra                      | How to activate                                                |
+|----------------------------|----------------------------------------------------------------|
+| **Window Layout**          | **Window > Layouts > DDC Window Layout > Restore**             |
+| **Code Style**             | **Settings > Editor > Code Style** > select **DDC Code Style** |
+| **Selection Highlighting** | **Settings > Tools > DDC Theme** > enable the checkbox         |
 
-### Code Style Installation
-1. Copy `DDC_Code_Style.xml` to `config/codestyles/`
-2. Go to **Settings > Editor > Code Style** and select **DDC Code Style**
-
-### Window Layout Installation
-1. Close the IDE
-2. Copy `DDC_Window_Layout.xml` to `config/options/` and rename it to `window.layouts.xml`
-3. Start the IDE
-4. Go to **Window > Layouts** and select **DDC Window Layout**
->
-> **Note:** After plugin updates, you may need to reselect the UI Theme, Editor Theme, and Key Maps in Settings.
+> **Note:** All settings are removed automatically when the plugin is uninstalled.
 
 # Building
+
+Requires JDK 21.
 
 ```bash
 ./build.sh
 ```
 
-The script builds `DDC_Theme_<version>.jar` inside the `build/` directory.
+The script builds `DDC-Theme-<version>.zip` inside the `build/` directory.
+Plugin settings (`VERSION`, `PLATFORM_VERSION`, `WHATS_NEW`) are configured at the top of `build.sh`.
 
 # Version Control File Status Colors
 <table>
