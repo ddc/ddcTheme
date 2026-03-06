@@ -2,18 +2,22 @@ package com.ddc.theme.listeners
 
 import com.ddc.theme.settings.DdcThemeSettings
 import com.intellij.ide.plugins.PluginManagerCore
+import com.intellij.ide.ui.LafManager
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ModalityState
 import com.intellij.openapi.application.PathManager
+import com.intellij.openapi.diagnostic.logger
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.keymap.ex.KeymapManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
+import com.intellij.openapi.util.JDOMUtil
 import com.intellij.psi.codeStyle.CodeStyleSchemes
+import com.intellij.psi.codeStyle.CodeStyleSettingsManager
 import com.intellij.psi.impl.source.codeStyle.CodeStyleSchemesImpl
 import com.intellij.toolWindow.ToolWindowDefaultLayoutManager
 import kotlinx.serialization.DeserializationStrategy
@@ -28,13 +32,15 @@ import java.nio.file.StandardCopyOption
 
 class DdcThemeInitializer : ProjectActivity {
     companion object {
+        private val LOG = logger<DdcThemeInitializer>()
         private const val PLUGIN_ID = "com.ddc.theme"
         private const val LAST_VERSION_KEY = "ddc.theme.lastNotifiedVersion"
         private const val NOTIFICATION_GROUP_ID = "DDC Theme Notifications"
+        private const val THEME_NAME = "DDC Theme"
         private const val EDITOR_SCHEME_NAME = "DDC Editor Theme"
         private const val KEYMAP_NAME = "DDC Key Maps"
-        private const val CODE_STYLE_FILE = "DDC_Code_Style.xml"
         private const val CODE_STYLE_SCHEME_NAME = "DDC Code Style"
+        private const val CODE_STYLE_RESOURCE = "/extras/DDC_Code_Style.xml"
         private const val WINDOW_LAYOUT_NAME = "DDC Window Layout"
 
         @Volatile
@@ -51,6 +57,7 @@ class DdcThemeInitializer : ProjectActivity {
         val currentVersion = plugin.version
         val pluginDir = plugin.pluginPath.let { if (Files.isDirectory(it)) it else it.parent }
         val markerFile = pluginDir.resolve(".initialized")
+        LOG.info("DDC: markerFile=$markerFile exists=${Files.exists(markerFile)}")
 
         if (Files.exists(markerFile)) return
 
@@ -72,9 +79,10 @@ class DdcThemeInitializer : ProjectActivity {
         // Marker file is written only after they take effect,
         // so a restart will retry if dynamic load didn't apply them.
         ApplicationManager.getApplication().invokeLater({
+            applyUiTheme()
             applyEditorScheme()
             applyKeymap()
-            installAndApplyCodeStyle()
+            installAndApplyCodeStyle(project)
 
             val title = "DDC Theme Installed — v$currentVersion"
             val changeNotes = plugin.changeNotes?.trim()
@@ -98,6 +106,21 @@ class DdcThemeInitializer : ProjectActivity {
         }, ModalityState.nonModal())
     }
 
+    private fun applyUiTheme() {
+        try {
+            val lafManager = LafManager.getInstance()
+            val ddcTheme =
+                lafManager.installedThemes
+                    .firstOrNull { it.name == THEME_NAME }
+                    ?: return
+            lafManager.setCurrentUIThemeLookAndFeel(ddcTheme)
+            lafManager.updateUI()
+            LOG.info("DDC: applyUiTheme - applied")
+        } catch (e: Exception) {
+            LOG.warn("DDC: applyUiTheme failed", e)
+        }
+    }
+
     private fun applyEditorScheme() {
         try {
             val ecm = EditorColorsManager.getInstance()
@@ -116,27 +139,66 @@ class DdcThemeInitializer : ProjectActivity {
         }
     }
 
-    private fun installAndApplyCodeStyle() {
+    private fun installAndApplyCodeStyle(project: Project) {
         try {
+            val codeStylesDir = Path.of(PathManager.getConfigPath(), "codestyles")
+            Files.createDirectories(codeStylesDir)
+            val targetFile = codeStylesDir.resolve("DDC_Code_Style.xml")
+            if (!Files.exists(targetFile)) {
+                val resource = javaClass.getResourceAsStream(CODE_STYLE_RESOURCE) ?: return
+                resource.use { Files.copy(it, targetFile, StandardCopyOption.REPLACE_EXISTING) }
+            }
+
             val schemes = CodeStyleSchemes.getInstance()
 
-            // Check if already loaded
+            // Reload the scheme manager so it picks up the file we just copied
+            try {
+                CodeStyleSchemesImpl.getSchemeManager().reload()
+            } catch (_: Exception) {
+            }
+
             var ddcScheme = schemes.findSchemeByName(CODE_STYLE_SCHEME_NAME)
 
             if (ddcScheme == null) {
-                val codeStylesDir = Path.of(PathManager.getConfigPath(), "codestyles")
-                Files.createDirectories(codeStylesDir)
-                val targetFile = codeStylesDir.resolve(CODE_STYLE_FILE)
-                if (!Files.exists(targetFile)) {
-                    val resource = javaClass.getResourceAsStream("/extras/$CODE_STYLE_FILE") ?: return
-                    resource.use { Files.copy(it, targetFile, StandardCopyOption.REPLACE_EXISTING) }
-                }
-                CodeStyleSchemesImpl.getSchemeManager().reload()
-                ddcScheme = schemes.findSchemeByName(CODE_STYLE_SCHEME_NAME) ?: return
+                val element = JDOMUtil.load(targetFile)
+                ddcScheme = schemes.createNewScheme(CODE_STYLE_SCHEME_NAME, schemes.defaultScheme)
+                ddcScheme.codeStyleSettings.readExternal(element)
+                schemes.addScheme(ddcScheme)
             }
 
             schemes.currentScheme = ddcScheme
-        } catch (_: Exception) {
+
+            // Set the preferred scheme at application level
+            val appManager = CodeStyleSettingsManager.getInstance()
+            appManager.PREFERRED_PROJECT_CODE_STYLE = CODE_STYLE_SCHEME_NAME
+
+            // Set in-memory for the current project (immediate effect)
+            val settingsManager = CodeStyleSettingsManager.getInstance(project)
+            settingsManager.USE_PER_PROJECT_SETTINGS = false
+            settingsManager.PREFERRED_PROJECT_CODE_STYLE = CODE_STYLE_SCHEME_NAME
+            settingsManager.fireCodeStyleSettingsChanged()
+
+            // Write project-level config file directly (guaranteed persistence across restarts)
+            // In-memory volatile field changes don't trigger PersistentStateComponent save
+            val projectPath = project.basePath
+            if (projectPath != null) {
+                val codeStylesConfigDir = Path.of(projectPath, ".idea", "codeStyles")
+                Files.createDirectories(codeStylesConfigDir)
+                val configFile = codeStylesConfigDir.resolve("codeStyleConfig.xml")
+                Files.writeString(
+                    configFile,
+                    "<component name=\"ProjectCodeStyleConfiguration\">\n" +
+                        "  <state>\n" +
+                        "    <option name=\"PREFERRED_PROJECT_CODE_STYLE\" value=\"$CODE_STYLE_SCHEME_NAME\" />\n" +
+                        "  </state>\n" +
+                        "</component>\n",
+                )
+                LOG.info("DDC: installCodeStyle - wrote codeStyleConfig.xml to $configFile")
+            }
+
+            LOG.info("DDC: installCodeStyle - set as current and preferred scheme (app + project)")
+        } catch (e: Exception) {
+            LOG.warn("DDC: installCodeStyle failed", e)
         }
     }
 
