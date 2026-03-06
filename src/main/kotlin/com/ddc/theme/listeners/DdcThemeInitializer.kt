@@ -36,9 +36,9 @@ class DdcThemeInitializer : ProjectActivity {
         private const val PLUGIN_ID = "com.ddc.theme"
         private const val LAST_VERSION_KEY = "ddc.theme.lastNotifiedVersion"
         private const val NOTIFICATION_GROUP_ID = "DDC Theme Notifications"
-        private const val THEME_NAME = "DDC Theme"
-        private const val EDITOR_SCHEME_NAME = "DDC Editor Theme"
-        private const val KEYMAP_NAME = "DDC Key Maps"
+        private const val THEME_NAME = "DDC Dark"
+        private const val EDITOR_SCHEME_NAME = "DDC Editor Dark"
+        private const val KEYMAP_NAME = "DDC_Keymaps"
         private const val CODE_STYLE_SCHEME_NAME = "DDC Code Style"
         private const val CODE_STYLE_RESOURCE = "/extras/DDC_Code_Style.xml"
         private const val WINDOW_LAYOUT_NAME = "DDC Window Layout"
@@ -84,7 +84,7 @@ class DdcThemeInitializer : ProjectActivity {
             applyKeymap()
             installAndApplyCodeStyle(project)
 
-            val title = "DDC Theme Installed — v$currentVersion"
+            val title = "DDC Dark Installed — v$currentVersion"
             val changeNotes = plugin.changeNotes?.trim()
             val content =
                 if (!changeNotes.isNullOrBlank()) {
@@ -124,18 +124,30 @@ class DdcThemeInitializer : ProjectActivity {
     private fun applyEditorScheme() {
         try {
             val ecm = EditorColorsManager.getInstance()
-            val ddcScheme = ecm.getScheme(EDITOR_SCHEME_NAME) ?: return
+            val ddcScheme = ecm.getScheme(EDITOR_SCHEME_NAME)
+            if (ddcScheme == null) {
+                LOG.warn("DDC: applyEditorScheme - scheme '$EDITOR_SCHEME_NAME' not found, available: ${ecm.allSchemes.map { it.name }}")
+                return
+            }
             ecm.setGlobalScheme(ddcScheme)
-        } catch (_: Exception) {
+            LOG.info("DDC: applyEditorScheme - applied")
+        } catch (e: Exception) {
+            LOG.warn("DDC: applyEditorScheme failed", e)
         }
     }
 
     private fun applyKeymap() {
         try {
             val keymapManager = KeymapManagerEx.getInstanceEx()
-            val ddcKeymap = keymapManager.getKeymap(KEYMAP_NAME) ?: return
+            val ddcKeymap = keymapManager.getKeymap(KEYMAP_NAME)
+            if (ddcKeymap == null) {
+                LOG.warn("DDC: applyKeymap - keymap '$KEYMAP_NAME' not found, available: ${keymapManager.allKeymaps.map { it.name }}")
+                return
+            }
             keymapManager.activeKeymap = ddcKeymap
-        } catch (_: Exception) {
+            LOG.info("DDC: applyKeymap - applied")
+        } catch (e: Exception) {
+            LOG.warn("DDC: applyKeymap failed", e)
         }
     }
 

@@ -22,9 +22,9 @@
     ]]></description>
     <depends>com.intellij.modules.platform</depends>
     <extensions defaultExtensionNs="com.intellij">
-        <bundledColorScheme path="/colors/DDC Editor Theme"/>
-        <bundledKeymap file="DDC Key Maps.xml"/>
-        <themeProvider id="com.ddc.theme" path="/theme/DDC Theme.theme.json"/>
+        <bundledColorScheme path="/colors/DDC_Editor_Dark"/>
+        <bundledKeymap file="DDC_Keymaps.xml"/>
+        <themeProvider id="com.ddc.theme" path="/theme/DDC_Dark.theme.json"/>
         <applicationConfigurable parentId="tools" instance="com.ddc.theme.settings.DdcThemeConfigurable" id="com.ddc.theme.settings" displayName="DDC Theme"/>
         <applicationService serviceImplementation="com.ddc.theme.settings.DdcThemeSettings"/>
         <notificationGroup id="DDC Theme Notifications" displayType="STICKY_BALLOON"/>

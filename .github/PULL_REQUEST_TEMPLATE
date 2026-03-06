@@ -5,23 +5,23 @@
 <!-- List the key changes -->
 
 ## Type of Change
-- [ ] UI Theme (`DDC_Theme.json`)
-- [ ] Editor Theme (`DDC_Editor_Theme.icls`)
-- [ ] Key Maps (`DDC_Key_Maps.xml`)
+- [ ] UI Theme (`DDC_Dark.theme.json`)
+- [ ] Editor Theme (`DDC_Editor_Dark.xml`)
+- [ ] Key Maps (`DDC_Keymaps.xml`)
 - [ ] Code Style (`DDC_Code_Style.xml`)
 - [ ] Window Layout (`DDC_Window_Layout.xml`)
+- [ ] Plugin logic (Kotlin)
 - [ ] Build script or CI/CD
 - [ ] Documentation
 
 ## Testing
-- [ ] Built JAR with `build.sh`
+- [ ] Built plugin with `./gradlew buildPlugin`
 - [ ] Installed plugin in IDE and verified changes
 - [ ] Verified UI Theme renders correctly
 - [ ] Verified Editor Theme colors render correctly
 
 ## Version Bump
-- [ ] Updated `VERSION` in `build.sh`
-- [ ] Updated `WHATS_NEW` in `build.sh`
+- [ ] Updated version in `build.gradle.kts`
 
 ## Reviewer
 - [ ] I understand that by approving this PR, I share responsibility for these changes

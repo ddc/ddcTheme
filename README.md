@@ -124,7 +124,7 @@ Plugin settings (`VERSION`, `PLATFORM_VERSION`, `WHATS_NEW`) are configured at t
 | Obsolete                                | ![#6F737A](https://placehold.co/12x12/6F737A/6F737A) | `6F737A` |
 | Suppressed                              | ![#6F737A](https://placehold.co/12x12/6F737A/6F737A) | `6F737A` |
 | Switched                                | ![#D1D3D9](https://placehold.co/12x12/D1D3D9/D1D3D9) | `D1D3D9` |
-| Unknown                                 | ![#9A8447](https://placehold.co/12x12/9A8447/9A8447) | `9A8447` |
+| Unknown                                 | ![#D69A6B](https://placehold.co/12x12/D69A6B/D69A6B) | `D69A6B` |
 | Up to date                              | ![#D1D3D9](https://placehold.co/12x12/D1D3D9/D1D3D9) | `D1D3D9` |
 
 </td>

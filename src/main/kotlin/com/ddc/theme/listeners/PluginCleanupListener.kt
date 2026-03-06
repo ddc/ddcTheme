@@ -23,9 +23,9 @@ import java.nio.file.Path
 object PluginCleanupListener {
     private val LOG = logger<PluginCleanupListener>()
     private const val PLUGIN_ID = "com.ddc.theme"
-    private const val THEME_NAME = "DDC Theme"
-    private const val KEYMAP_NAME = "DDC Key Maps"
-    private const val EDITOR_SCHEME_NAME = "DDC Editor Theme"
+    private const val THEME_NAME = "DDC Dark"
+    private const val KEYMAP_NAME = "DDC_Keymaps"
+    private const val EDITOR_SCHEME_NAME = "DDC Editor Dark"
     private const val LAST_VERSION_KEY = "ddc.theme.lastNotifiedVersion"
     private const val CODE_STYLE_SCHEME_NAME = "DDC Code Style"
     private const val WINDOW_LAYOUT_NAME = "DDC Window Layout"
@@ -102,8 +102,12 @@ object PluginCleanupListener {
             if (!Files.isDirectory(colorsDir)) return
             Files.list(colorsDir).use { stream ->
                 stream
-                    .filter { it.fileName.toString().contains(EDITOR_SCHEME_NAME) }
-                    .forEach { Files.deleteIfExists(it) }
+                    .filter {
+                        it.fileName
+                            .toString()
+                            .lowercase()
+                            .contains("ddc")
+                    }.forEach { Files.deleteIfExists(it) }
             }
         } catch (_: Exception) {
         }
