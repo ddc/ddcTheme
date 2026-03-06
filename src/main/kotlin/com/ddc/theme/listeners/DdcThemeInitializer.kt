@@ -13,6 +13,7 @@ import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.keymap.ex.KeymapManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
+import com.intellij.psi.codeStyle.CodeStyleSchemes
 import com.intellij.psi.impl.source.codeStyle.CodeStyleSchemesImpl
 import com.intellij.toolWindow.ToolWindowDefaultLayoutManager
 import kotlinx.serialization.DeserializationStrategy
@@ -43,6 +44,8 @@ class DdcThemeInitializer : ProjectActivity {
     override suspend fun execute(project: Project) {
         if (initialized) return
         initialized = true
+
+        PluginCleanupListener.register()
 
         val plugin = PluginManagerCore.getPlugin(PluginId.getId(PLUGIN_ID)) ?: return
         val currentVersion = plugin.version
@@ -122,10 +125,10 @@ class DdcThemeInitializer : ProjectActivity {
                 val resource = javaClass.getResourceAsStream("/extras/$CODE_STYLE_FILE") ?: return
                 resource.use { Files.copy(it, targetFile, StandardCopyOption.REPLACE_EXISTING) }
             }
-            val schemeManager = CodeStyleSchemesImpl.getSchemeManager()
-            schemeManager.reload()
-            val ddcScheme = schemeManager.findSchemeByName(CODE_STYLE_SCHEME_NAME) ?: return
-            schemeManager.setCurrent(ddcScheme)
+            CodeStyleSchemesImpl.getSchemeManager().reload()
+            val schemes = CodeStyleSchemes.getInstance()
+            val ddcScheme = schemes.allSchemes.firstOrNull { it.name == CODE_STYLE_SCHEME_NAME } ?: return
+            schemes.currentScheme = ddcScheme
         } catch (_: Exception) {
         }
     }

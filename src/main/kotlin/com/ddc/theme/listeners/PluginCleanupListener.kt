@@ -3,6 +3,7 @@ package com.ddc.theme.listeners
 import com.ddc.theme.settings.DdcThemeSettings
 import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.ide.plugins.PluginStateListener
+import com.intellij.ide.plugins.PluginStateManager
 import com.intellij.ide.ui.LafManager
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.application.PathManager
@@ -15,33 +16,43 @@ import com.intellij.toolWindow.ToolWindowDefaultLayoutManager
 import java.nio.file.Files
 import java.nio.file.Path
 
-class PluginCleanupListener : PluginStateListener {
-    companion object {
-        private const val PLUGIN_ID = "com.ddc.theme"
-        private const val THEME_NAME = "DDC Theme"
-        private const val KEYMAP_NAME = "DDC Key Maps"
-        private const val EDITOR_SCHEME_NAME = "DDC Editor Theme"
-        private const val LAST_VERSION_KEY = "ddc.theme.lastNotifiedVersion"
-        private const val CODE_STYLE_FILE = "DDC_Code_Style.xml"
-        private const val CODE_STYLE_SCHEME_NAME = "DDC Code Style"
-        private const val WINDOW_LAYOUT_NAME = "DDC Window Layout"
-    }
+object PluginCleanupListener {
+    private const val PLUGIN_ID = "com.ddc.theme"
+    private const val THEME_NAME = "DDC Theme"
+    private const val KEYMAP_NAME = "DDC Key Maps"
+    private const val EDITOR_SCHEME_NAME = "DDC Editor Theme"
+    private const val LAST_VERSION_KEY = "ddc.theme.lastNotifiedVersion"
+    private const val CODE_STYLE_FILE = "DDC_Code_Style.xml"
+    private const val CODE_STYLE_SCHEME_NAME = "DDC Code Style"
+    private const val WINDOW_LAYOUT_NAME = "DDC Window Layout"
 
-    override fun install(descriptor: IdeaPluginDescriptor) {}
+    @Volatile
+    private var registered = false
 
-    override fun uninstall(descriptor: IdeaPluginDescriptor) {
-        if (descriptor.pluginId.idString != PLUGIN_ID) return
-        resetUiTheme()
-        resetEditorScheme()
-        resetKeymapToDefault()
-        removeEditorSchemeFiles()
-        removeCodeStyle()
-        removeWindowLayout()
-        PropertiesComponent.getInstance().unsetValue(LAST_VERSION_KEY)
-        try {
-            DdcThemeSettings.getInstance().loadState(DdcThemeSettings.State())
-        } catch (_: Exception) {
-        }
+    fun register() {
+        if (registered) return
+        registered = true
+
+        PluginStateManager.addStateListener(
+            object : PluginStateListener {
+                override fun install(descriptor: IdeaPluginDescriptor) {}
+
+                override fun uninstall(descriptor: IdeaPluginDescriptor) {
+                    if (descriptor.pluginId.idString != PLUGIN_ID) return
+                    resetUiTheme()
+                    resetEditorScheme()
+                    resetKeymapToDefault()
+                    removeEditorSchemeFiles()
+                    removeCodeStyle()
+                    removeWindowLayout()
+                    PropertiesComponent.getInstance().unsetValue(LAST_VERSION_KEY)
+                    try {
+                        DdcThemeSettings.getInstance().loadState(DdcThemeSettings.State())
+                    } catch (_: Exception) {
+                    }
+                }
+            },
+        )
     }
 
     private fun resetUiTheme() {
@@ -96,8 +107,14 @@ class PluginCleanupListener : PluginStateListener {
             if (schemes.currentScheme.name == CODE_STYLE_SCHEME_NAME) {
                 schemes.currentScheme = schemes.defaultScheme
             }
+        } catch (_: Exception) {
+        }
+        try {
             val targetFile = Path.of(PathManager.getConfigPath(), "codestyles", CODE_STYLE_FILE)
             Files.deleteIfExists(targetFile)
+        } catch (_: Exception) {
+        }
+        try {
             CodeStyleSchemesImpl.getSchemeManager().reload()
         } catch (_: Exception) {
         }

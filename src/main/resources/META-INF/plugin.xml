@@ -31,8 +31,4 @@
         <postStartupActivity implementation="com.ddc.theme.listeners.DdcThemeInitializer"/>
         <postStartupActivity implementation="com.ddc.theme.listeners.SelectionHighlightListener"/>
     </extensions>
-    <applicationListeners>
-        <listener class="com.ddc.theme.listeners.PluginCleanupListener"
-                  topic="com.intellij.ide.plugins.PluginStateListener"/>
-    </applicationListeners>
 </idea-plugin>

@@ -31,11 +31,11 @@ jobs:
           key: ide-transforms-${{ hashFiles('gradle.properties') }}
           restore-keys: ide-transforms-
 
-      - name: Build plugin
-        run: ./gradlew buildPlugin
-
       - name: Verify plugin
         run: ./gradlew verifyPlugin
+
+      - name: Build plugin
+        run: ./gradlew buildPlugin
 
       - name: Get artifact filename
         if: startsWith(github.ref, 'refs/tags/')
