@@ -1,18 +1,18 @@
-<idea-plugin require-restart="true">
+<idea-plugin>
     <id>com.ddc.theme</id>
     <name>DDC Theme</name>
     <vendor email="daniel@ddcsoftwares.com" url="https://github.com/ddc/JetbrainsTheme">DDC Softwares</vendor>
     <description><![CDATA[
-        DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, Key Maps, Code Style, Window Layout, and Selection Occurrence Highlighting.
-        <br/>
         <a href="https://github.com/ddc/JetbrainsTheme">GitHub</a> |
         <a href="https://github.com/sponsors/ddc">GitHub Sponsors</a> |
         <a href="https://ko-fi.com/ddcsta">Ko-fi</a> |
         <a href="https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ">PayPal</a>
-        <br/>
+        <br/><br/>
+        DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, Key Maps, Code Style, Window Layout, and Selection Occurrence Highlighting.
+        <br/><br/>
         <b>Getting Started</b><br/>
         UI Theme, Editor Theme, and Key Maps apply automatically after install and restart.
-        <br/>
+        <br/><br/>
         Optional extras (installed but not activated):
         <ul>
             <li><b>Window Layout</b> — Window > Layouts > DDC Window Layout > <b>Restore</b></li>

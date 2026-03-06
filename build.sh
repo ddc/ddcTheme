@@ -11,9 +11,9 @@ VERSION="1.0.7"
 MIN_PLATFORM_VERSION="2025.3.3"
 WHATS_NEW=$(cat <<'EOF'
 <ul>
-<li>Window Layout available - Window > Layouts > DDC Window Layout</li>
-<li>Code Style available - Settings > Editor > Code Style > DDC Code Style</li>
-<li>Text selection highlighting - all matching text is highlighted when you select a word (disabled by default)</li>
+<li>Window > Layouts > DDC Window Layout</li>
+<li>Settings > Editor > Code Style > DDC Code Style</li>
+<li>Settings > Tools > DDC Theme (word highlighting, disabled by default)</li>
 </ul>
 
 EOF
