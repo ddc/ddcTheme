@@ -11,7 +11,6 @@ import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.keymap.KeymapManager
 import com.intellij.openapi.keymap.ex.KeymapManagerEx
 import com.intellij.psi.codeStyle.CodeStyleSchemes
-import com.intellij.psi.impl.source.codeStyle.CodeStyleSchemesImpl
 import com.intellij.toolWindow.ToolWindowDefaultLayoutManager
 import java.nio.file.Files
 import java.nio.file.Path
@@ -104,18 +103,18 @@ object PluginCleanupListener {
     private fun removeCodeStyle() {
         try {
             val schemes = CodeStyleSchemes.getInstance()
-            if (schemes.currentScheme.name == CODE_STYLE_SCHEME_NAME) {
-                schemes.currentScheme = schemes.defaultScheme
+            val ddcScheme = schemes.findSchemeByName(CODE_STYLE_SCHEME_NAME)
+            if (ddcScheme != null) {
+                if (schemes.currentScheme.name == CODE_STYLE_SCHEME_NAME) {
+                    schemes.currentScheme = schemes.defaultScheme
+                }
+                schemes.deleteScheme(ddcScheme)
             }
         } catch (_: Exception) {
         }
         try {
             val targetFile = Path.of(PathManager.getConfigPath(), "codestyles", CODE_STYLE_FILE)
             Files.deleteIfExists(targetFile)
-        } catch (_: Exception) {
-        }
-        try {
-            CodeStyleSchemesImpl.getSchemeManager().reload()
         } catch (_: Exception) {
         }
     }

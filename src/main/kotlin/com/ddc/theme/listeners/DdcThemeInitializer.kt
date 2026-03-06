@@ -118,16 +118,23 @@ class DdcThemeInitializer : ProjectActivity {
 
     private fun installAndApplyCodeStyle() {
         try {
-            val codeStylesDir = Path.of(PathManager.getConfigPath(), "codestyles")
-            Files.createDirectories(codeStylesDir)
-            val targetFile = codeStylesDir.resolve(CODE_STYLE_FILE)
-            if (!Files.exists(targetFile)) {
-                val resource = javaClass.getResourceAsStream("/extras/$CODE_STYLE_FILE") ?: return
-                resource.use { Files.copy(it, targetFile, StandardCopyOption.REPLACE_EXISTING) }
-            }
-            CodeStyleSchemesImpl.getSchemeManager().reload()
             val schemes = CodeStyleSchemes.getInstance()
-            val ddcScheme = schemes.allSchemes.firstOrNull { it.name == CODE_STYLE_SCHEME_NAME } ?: return
+
+            // Check if already loaded
+            var ddcScheme = schemes.findSchemeByName(CODE_STYLE_SCHEME_NAME)
+
+            if (ddcScheme == null) {
+                val codeStylesDir = Path.of(PathManager.getConfigPath(), "codestyles")
+                Files.createDirectories(codeStylesDir)
+                val targetFile = codeStylesDir.resolve(CODE_STYLE_FILE)
+                if (!Files.exists(targetFile)) {
+                    val resource = javaClass.getResourceAsStream("/extras/$CODE_STYLE_FILE") ?: return
+                    resource.use { Files.copy(it, targetFile, StandardCopyOption.REPLACE_EXISTING) }
+                }
+                CodeStyleSchemesImpl.getSchemeManager().reload()
+                ddcScheme = schemes.findSchemeByName(CODE_STYLE_SCHEME_NAME) ?: return
+            }
+
             schemes.currentScheme = ddcScheme
         } catch (_: Exception) {
         }
