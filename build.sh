@@ -37,7 +37,13 @@ sed -i "s/^org.gradle.jvmargs = .*/org.gradle.jvmargs = ${GRADLE_BUILD_JVM_ARGS}
 # Write change notes for Gradle to inject into plugin.xml and in-IDE notification
 echo "$WHATS_NEW" > .whats_new.html
 
-./gradlew buildPlugin "$@"
+if [[ "${1:-}" == "--verify" ]]; then
+    echo "Verifying plugin..."
+    ./gradlew verifyPlugin 2>&1 | grep -E "IU-|IC-|PS-|Scheduled"
+    echo
+fi
+
+./gradlew buildPlugin
 
 # Keep only the final zip in build directory
 ZIP_FILE="DDC-Theme-${VERSION}.zip"

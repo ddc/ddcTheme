@@ -85,7 +85,14 @@ The following extras are installed but not activated — enable them if you'd li
 Requires JDK 21.
 
 ```bash
+# Build only
 ./build.sh
+
+# Build with plugin verification
+./build.sh --verify
+
+# Format, verify, and build (requires ktlint)
+ktlint --format "src/**/*.kt" && ./build.sh --verify
 ```
 
 The script builds `DDC-Theme-<version>.zip` inside the `build/` directory.

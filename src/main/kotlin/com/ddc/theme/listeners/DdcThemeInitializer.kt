@@ -13,7 +13,6 @@ import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.keymap.ex.KeymapManagerEx
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.startup.ProjectActivity
-import com.intellij.psi.codeStyle.CodeStyleSchemes
 import com.intellij.psi.impl.source.codeStyle.CodeStyleSchemesImpl
 import com.intellij.toolWindow.ToolWindowDefaultLayoutManager
 import kotlinx.serialization.DeserializationStrategy
@@ -72,8 +71,7 @@ class DdcThemeInitializer : ProjectActivity {
         ApplicationManager.getApplication().invokeLater({
             applyEditorScheme()
             applyKeymap()
-            installCodeStyle()
-            applyCodeStyle()
+            installAndApplyCodeStyle()
 
             val title = "DDC Theme Installed — v$currentVersion"
             val changeNotes = plugin.changeNotes?.trim()
@@ -115,11 +113,19 @@ class DdcThemeInitializer : ProjectActivity {
         }
     }
 
-    private fun applyCodeStyle() {
+    private fun installAndApplyCodeStyle() {
         try {
-            val schemes = CodeStyleSchemes.getInstance()
-            val ddcScheme = schemes.findSchemeByName(CODE_STYLE_SCHEME_NAME) ?: return
-            schemes.currentScheme = ddcScheme
+            val codeStylesDir = Path.of(PathManager.getConfigPath(), "codestyles")
+            Files.createDirectories(codeStylesDir)
+            val targetFile = codeStylesDir.resolve(CODE_STYLE_FILE)
+            if (!Files.exists(targetFile)) {
+                val resource = javaClass.getResourceAsStream("/extras/$CODE_STYLE_FILE") ?: return
+                resource.use { Files.copy(it, targetFile, StandardCopyOption.REPLACE_EXISTING) }
+            }
+            val schemeManager = CodeStyleSchemesImpl.getSchemeManager()
+            schemeManager.reload()
+            val ddcScheme = schemeManager.findSchemeByName(CODE_STYLE_SCHEME_NAME) ?: return
+            schemeManager.setCurrent(ddcScheme)
         } catch (_: Exception) {
         }
     }
@@ -189,19 +195,6 @@ class DdcThemeInitializer : ProjectActivity {
                     .firstOrNull { it.name == "loadState" && it.parameterTypes[0].name.contains("StorageManagerState") }
                     ?: return
             loadStateMethod.invoke(layoutManager, newState)
-        } catch (_: Exception) {
-        }
-    }
-
-    private fun installCodeStyle() {
-        try {
-            val codeStylesDir = Path.of(PathManager.getConfigPath(), "codestyles")
-            Files.createDirectories(codeStylesDir)
-            val targetFile = codeStylesDir.resolve(CODE_STYLE_FILE)
-            if (Files.exists(targetFile)) return
-            val resource = javaClass.getResourceAsStream("/extras/$CODE_STYLE_FILE") ?: return
-            resource.use { Files.copy(it, targetFile, StandardCopyOption.REPLACE_EXISTING) }
-            CodeStyleSchemesImpl.getSchemeManager().reload()
         } catch (_: Exception) {
         }
     }

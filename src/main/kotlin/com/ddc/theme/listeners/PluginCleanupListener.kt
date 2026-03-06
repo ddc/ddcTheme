@@ -3,22 +3,19 @@ package com.ddc.theme.listeners
 import com.ddc.theme.settings.DdcThemeSettings
 import com.intellij.ide.plugins.IdeaPluginDescriptor
 import com.intellij.ide.plugins.PluginStateListener
-import com.intellij.ide.plugins.PluginStateManager
 import com.intellij.ide.ui.LafManager
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.application.PathManager
 import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.keymap.KeymapManager
 import com.intellij.openapi.keymap.ex.KeymapManagerEx
-import com.intellij.openapi.project.Project
-import com.intellij.openapi.startup.ProjectActivity
 import com.intellij.psi.codeStyle.CodeStyleSchemes
 import com.intellij.psi.impl.source.codeStyle.CodeStyleSchemesImpl
 import com.intellij.toolWindow.ToolWindowDefaultLayoutManager
 import java.nio.file.Files
 import java.nio.file.Path
 
-class PluginCleanupListener : ProjectActivity {
+class PluginCleanupListener : PluginStateListener {
     companion object {
         private const val PLUGIN_ID = "com.ddc.theme"
         private const val THEME_NAME = "DDC Theme"
@@ -28,35 +25,23 @@ class PluginCleanupListener : ProjectActivity {
         private const val CODE_STYLE_FILE = "DDC_Code_Style.xml"
         private const val CODE_STYLE_SCHEME_NAME = "DDC Code Style"
         private const val WINDOW_LAYOUT_NAME = "DDC Window Layout"
-
-        @Volatile
-        private var listenerRegistered = false
     }
 
-    override suspend fun execute(project: Project) {
-        if (listenerRegistered) return
-        listenerRegistered = true
+    override fun install(descriptor: IdeaPluginDescriptor) {}
 
-        PluginStateManager.addStateListener(
-            object : PluginStateListener {
-                override fun install(descriptor: IdeaPluginDescriptor) {}
-
-                override fun uninstall(descriptor: IdeaPluginDescriptor) {
-                    if (descriptor.pluginId.idString != PLUGIN_ID) return
-                    resetUiTheme()
-                    resetEditorScheme()
-                    resetKeymapToDefault()
-                    removeEditorSchemeFiles()
-                    removeCodeStyle()
-                    removeWindowLayout()
-                    PropertiesComponent.getInstance().unsetValue(LAST_VERSION_KEY)
-                    try {
-                        DdcThemeSettings.getInstance().loadState(DdcThemeSettings.State())
-                    } catch (_: Exception) {
-                    }
-                }
-            },
-        )
+    override fun uninstall(descriptor: IdeaPluginDescriptor) {
+        if (descriptor.pluginId.idString != PLUGIN_ID) return
+        resetUiTheme()
+        resetEditorScheme()
+        resetKeymapToDefault()
+        removeEditorSchemeFiles()
+        removeCodeStyle()
+        removeWindowLayout()
+        PropertiesComponent.getInstance().unsetValue(LAST_VERSION_KEY)
+        try {
+            DdcThemeSettings.getInstance().loadState(DdcThemeSettings.State())
+        } catch (_: Exception) {
+        }
     }
 
     private fun resetUiTheme() {

@@ -30,6 +30,9 @@
         <notificationGroup id="DDC Theme Notifications" displayType="STICKY_BALLOON"/>
         <postStartupActivity implementation="com.ddc.theme.listeners.DdcThemeInitializer"/>
         <postStartupActivity implementation="com.ddc.theme.listeners.SelectionHighlightListener"/>
-        <postStartupActivity implementation="com.ddc.theme.listeners.PluginCleanupListener"/>
     </extensions>
+    <applicationListeners>
+        <listener class="com.ddc.theme.listeners.PluginCleanupListener"
+                  topic="com.intellij.ide.plugins.PluginStateListener"/>
+    </applicationListeners>
 </idea-plugin>
