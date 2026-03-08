@@ -11,7 +11,7 @@
     <a href="https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ"><img src="https://img.shields.io/badge/Donate-PayPal-brightgreen.svg?style=plastic&logo=paypal&logoColor=white" alt="Donate"/></a>
     <br>
     <a href="https://plugins.jetbrains.com/plugin/30414-ddc-theme"><img src="https://img.shields.io/jetbrains/plugin/d/30414?style=plastic&logo=jetbrains&logoColor=white" alt="Marketplace Downloads"/></a>
-    <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=plastic&logo=apache&logoColor=white" alt="License: Apache 2.0"/></a>
+    <a href="https://github.com/ddc/JetbrainsTheme/blob/master/LICENSE"><img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=plastic&logo=apache&logoColor=white" alt="License: Apache 2.0"/></a>
     <a href="https://github.com/ddc/JetbrainsTheme/releases/latest"><img src="https://img.shields.io/github/v/release/ddc/JetbrainsTheme?style=plastic&logo=github&logoColor=white" alt="Release"/></a>
     <br>
     <a href="https://github.com/ddc/JetbrainsTheme/issues"><img src="https://img.shields.io/github/issues/ddc/JetbrainsTheme?style=plastic&logo=github&logoColor=white" alt="issues"/></a>
@@ -19,7 +19,7 @@
     <a href="https://actions-badge.atrox.dev/ddc/JetbrainsTheme/goto?ref=master"><img src="https://img.shields.io/endpoint.svg?url=https%3A//actions-badge.atrox.dev/ddc/JetbrainsTheme/badge?ref=master&label=build&logo=github&style=plastic" alt="Build Status"/></a>
 </p>
 
-<p align="center">A dark theme for JetBrains IDEs based on <a href="https://github.com/atom/atom/tree/master/packages/one-dark-ui">Atom One Dark</a> colors.<br>Includes UI Theme, Editor Theme, VCS Colors, Key Maps, Code Style, Window Layout, and Selection Occurrence Highlighting.</p>
+<p align="center">A dark theme for JetBrains IDEs based on <a href="https://github.com/atom/atom/tree/master/packages/one-dark-ui">Atom One Dark</a> colors.<br>Includes UI Theme, Editor Theme, VCS Colors, Keymaps, Code Style, Window Layout, and Selection Occurrence Highlighting.</p>
 
 <p align="center">📦 <b><a href="https://plugins.jetbrains.com/plugin/30414-ddc-theme">Install from JetBrains Marketplace</a></b> 📦 </p>
 
@@ -32,11 +32,13 @@
     - [From Plugin ZIP](#from-plugin-zip)
 - [Getting Started](#getting-started)
 - [Building](#building)
+- [Keymaps Changes](#keymaps-changes)
 - [Version Control File Status Colors](#version-control-file-status-colors)
 - [License](#license)
 - [Support](#support)
 
 # Screenshot
+
 <p align="left">
   <img src="assets/example_bash.png" alt="Editor Theme">
 </p>
@@ -48,13 +50,14 @@
 | UI Theme                    | Dark UI with custom backgrounds, borders, and popups                                                           |
 | Editor Scheme               | Syntax highlighting and editor colors                                                                          |
 | VCS Colors                  | Custom file status colors for version control                                                                  |
-| Key Maps                    | Custom keyboard shortcuts                                                                                      |
+| Keymaps                     | Custom keyboard shortcuts                                                                                      |
 | Code Style                  | Formatting and indentation settings for multiple languages                                                     |
 | Window Layout               | Tool window arrangement and positions                                                                          |
 | Selection Highlighting      | Highlights all occurrences of selected text (disabled by default — enable in **Settings > Tools > DDC Theme**) |
 | Install/Update Notification | Shows what's new on first install or after an update                                                           |
 
 # Installation
+
 ## From Marketplace
 
 1. In your JetBrains IDE, go to **Settings > Plugins > Marketplace**
@@ -69,7 +72,7 @@
 
 # Getting Started
 
-After install and restart, the **UI Theme**, **Editor Theme**, and **Key Maps** are applied automatically.
+After install and restart, the **UI Theme**, **Editor Theme**, and **Keymaps** are applied automatically.
 The following extras are installed but not activated — enable them if you'd like:
 
 | Extra                      | How to activate                                                |
@@ -85,20 +88,47 @@ The following extras are installed but not activated — enable them if you'd li
 Requires JDK 21.
 
 ```bash
-# Build only
 ./build.sh
-
-# Build with plugin verification
-./build.sh --verify
-
-# Format, verify, and build (requires ktlint)
-ktlint --format "src/**/*.kt" && ./build.sh --verify
 ```
 
-The script builds `DDC-Theme-<version>.zip` inside the `build/` directory.
-Plugin settings (`VERSION`, `PLATFORM_VERSION`, `WHATS_NEW`) are configured at the top of `build.sh`.
+The script formats Kotlin sources (if `ktlint` is available), verifies the plugin, and builds `DDC-Theme-<version>.zip`
+inside the `build/` directory.
+Plugin settings (`VERSION`, `MIN_PLATFORM_VERSION`, `WHATS_NEW`) are configured at the top of `build.sh`.
+
+# Keymaps Changes
+
+Based on the default keymap with additional shortcuts (defaults are kept):
+
+| Action               | Default      | Added Shortcut |
+|----------------------|--------------|----------------|
+| Delete Line          | `Ctrl+Y`     | `Ctrl+D`       |
+| Rename...            | `Shift+F6`   | `F2`           |
+| Reload All from Disk | `Ctrl+Alt+Y` | `F5`           |
+
+The following default shortcuts are removed to avoid conflicts:
+
+| Action                    | Removed Shortcut |
+|---------------------------|------------------|
+| Duplicate Line            | `Ctrl+D`         |
+| Compare Files             | `Ctrl+D`         |
+| Show Diff                 | `Ctrl+D`         |
+| Send EOF                  | `Ctrl+D`         |
+| Go to Desktop             | `Ctrl+D`         |
+| Next Highlighted Error    | `F2`             |
+| Start Editing (Table)     | `F2`             |
+| Start Editing (Tree)      | `F2`             |
+| Set Value (Debugger)      | `F2`             |
+| Reword Commit             | `F2`, `Shift+F6` |
+| Rename Local Branch       | `F2`, `Shift+F6` |
+| Edit Changelist           | `F2`, `Shift+F6` |
+| Rename Shelved Changelist | `F2`, `Shift+F6` |
+| Rename Bookmark           | `F2`             |
+| Edit Arrangement Rule     | `F2`             |
+| Copy Element              | `F5`             |
+| Route Edges (Graph)       | `F5`             |
 
 # Version Control File Status Colors
+
 <table>
 <tr>
 <td>
@@ -135,9 +165,11 @@ Plugin settings (`VERSION`, `PLATFORM_VERSION`, `WHATS_NEW`) are configured at t
 </table>
 
 # License
-Released under the [Apache 2.0](LICENSE)
+
+Released under the [Apache License 2.0](https://github.com/ddc/JetbrainsTheme/blob/master/LICENSE)
 
 # Support
+
 If you find this project helpful, consider supporting development:
 
 - [GitHub Sponsor](https://github.com/sponsors/ddc)

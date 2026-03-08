@@ -10,18 +10,13 @@
 - [ ] Key Maps (`DDC_Keymaps.xml`)
 - [ ] Code Style (`DDC_Code_Style.xml`)
 - [ ] Window Layout (`DDC_Window_Layout.xml`)
-- [ ] Plugin logic (Kotlin)
+- [ ] Code (Kotlin)
 - [ ] Build script or CI/CD
 - [ ] Documentation
+- [ ] Other
 
 ## Testing
-- [ ] Built plugin with `./gradlew buildPlugin`
 - [ ] Installed plugin in IDE and verified changes
-- [ ] Verified UI Theme renders correctly
-- [ ] Verified Editor Theme colors render correctly
-
-## Version Bump
-- [ ] Updated version in `build.gradle.kts`
 
 ## Reviewer
 - [ ] I understand that by approving this PR, I share responsibility for these changes

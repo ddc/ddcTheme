@@ -1,38 +1,40 @@
 <keymap version="1" name="DDC_Keymaps" parent="$default">
-  <action id="ActivateBigDataToolWindowToolWindow">
-    <keyboard-shortcut first-keystroke="shift ctrl alt b" />
-  </action>
-  <action id="Arrangement.Rule.Edit" />
-  <action id="BookmarksView.Rename" />
-  <action id="ChangesView.Rename" />
-  <action id="CompareTwoFiles" />
-  <action id="Console.TableResult.EditValue">
-    <keyboard-shortcut first-keystroke="enter" />
-    <keyboard-shortcut first-keystroke="alt enter" />
-  </action>
-  <action id="CopyElement" />
-  <action id="Diff.ShowDiff" />
+  <!-- Delete Line: add Ctrl+D (keep default Ctrl+Y) -->
   <action id="EditorDeleteLine">
+    <keyboard-shortcut first-keystroke="ctrl y" />
     <keyboard-shortcut first-keystroke="ctrl d" />
   </action>
+  <!-- Remove Ctrl+D conflicts -->
   <action id="EditorDuplicate" />
+  <action id="CompareTwoFiles" />
+  <action id="Diff.ShowDiff" />
+  <action id="SendEOF" />
   <action id="FileChooser.GotoDesktop" />
-  <action id="Git.Rename.Local.Branch" />
-  <action id="Git.Reword.Commit" />
-  <action id="GotoNextError" />
-  <action id="Graph.RouteEdges" />
+
+  <!-- Rename: add F2 (keep default Shift+F6) -->
   <action id="RenameElement">
+    <keyboard-shortcut first-keystroke="shift f6" />
     <keyboard-shortcut first-keystroke="f2" />
   </action>
-  <action id="RunDashboard.CopyConfiguration" />
-  <action id="SendEOF" />
-  <action id="ShelvedChanges.Rename" />
-  <action id="Synchronize">
-    <keyboard-shortcut first-keystroke="f5" />
-  </action>
+  <!-- Remove F2 conflicts -->
+  <action id="GotoNextError" />
   <action id="Table-startEditing" />
   <action id="Tree-startEditing" />
-  <action id="XDebugger.CopyWatch" />
   <action id="XDebugger.SetValue" />
-  <action id="openAssertEqualsDiff" />
+  <!-- Remove F2 and Shift+F6 conflicts -->
+  <action id="ChangesView.Rename" />
+  <action id="Git.Rename.Local.Branch" />
+  <action id="Git.Reword.Commit" />
+  <action id="ShelvedChanges.Rename" />
+  <action id="BookmarksView.Rename" />
+  <action id="Arrangement.Rule.Edit" />
+
+  <!-- Reload All from Disk: add F5 (keep default Ctrl+Alt+Y) -->
+  <action id="Synchronize">
+    <keyboard-shortcut first-keystroke="ctrl alt y" />
+    <keyboard-shortcut first-keystroke="f5" />
+  </action>
+  <!-- Remove F5 conflicts -->
+  <action id="CopyElement" />
+  <action id="Graph.RouteEdges" />
 </keymap>
