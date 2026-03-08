@@ -83,12 +83,14 @@ format_kotlin() {
 }
 
 verify_plugin() {
-    log_action "Verifying plugin (runPluginVerifier)..."
-    ./gradlew runPluginVerifier 2>&1 | grep -iE "warning|problem|error|internal|experimental|deprecated|incompatible|Plugin .* against" || true
+    log_action "Verifying plugin..."
+    local output
+    output="$(./gradlew verifyPlugin 2>&1)" || { echo "$output"; exit 1; }
+    echo "$output" | grep -iE "warning|problem|error|internal|experimental|deprecated|incompatible|Plugin .* against" || true
 }
 
 build_plugin() {
-    log_action "Building plugin (buildPlugin)..."
+    log_action "Building plugin..."
     ./gradlew buildPlugin -q
 }
 

@@ -36,7 +36,7 @@ jobs:
           restore-keys: ide-transforms-
 
       - name: Verify plugin
-        run: ./gradlew runPluginVerifier
+        run: ./gradlew verifyPlugin
 
       - name: Build plugin
         run: ./gradlew buildPlugin
