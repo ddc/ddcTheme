@@ -257,7 +257,12 @@ object PluginCleanupListener {
     private fun restoreDefaultWindowLayout() {
         try {
             val layoutManager = ToolWindowDefaultLayoutManager.getInstance()
-            val defaultLayout = layoutManager.getLayoutCopy()
+            // Use reflection for getLayoutCopy() to avoid compile-time reference to internal DesktopLayout class
+            val getLayoutCopyMethod =
+                layoutManager.javaClass.methods.firstOrNull {
+                    it.name == "getLayoutCopy" && it.parameterCount == 0
+                } ?: return
+            val defaultLayout = getLayoutCopyMethod.invoke(layoutManager) ?: return
             for (project in ProjectManager.getInstance().openProjects) {
                 if (project.isDisposed) continue
                 val twm =

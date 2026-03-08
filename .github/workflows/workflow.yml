@@ -6,6 +6,10 @@ on:
     tags:
       - 'v*'
 
+env:
+  JAVA_VERSION: "21"
+  GRADLE_VERSION: "9.4.0"
+
 permissions:
   contents: write
 
@@ -19,7 +23,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 21
+          java-version: ${{ env.JAVA_VERSION }}
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -27,12 +31,12 @@ jobs:
       - name: Cache IDE downloads for verification
         uses: actions/cache@v4
         with:
-          path: ~/.gradle/caches/8.14.2/transforms
+          path: ~/.gradle/caches/${{ env.GRADLE_VERSION }}/transforms
           key: ide-transforms-${{ hashFiles('gradle.properties') }}
           restore-keys: ide-transforms-
 
       - name: Verify plugin
-        run: ./gradlew verifyPlugin
+        run: ./gradlew runPluginVerifier
 
       - name: Build plugin
         run: ./gradlew buildPlugin
