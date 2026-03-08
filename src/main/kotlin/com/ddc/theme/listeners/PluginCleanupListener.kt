@@ -241,6 +241,8 @@ object PluginCleanupListener {
         } catch (e: Exception) {
             LOG.warn("DDC: removeWindowLayout failed", e)
         }
+        // Restore default window positions for all open projects
+        restoreDefaultWindowLayout()
         // Force immediate save so IDE save-on-shutdown sees no changes needed
         try {
             ApplicationManager.getApplication().saveSettings()
@@ -250,6 +252,29 @@ object PluginCleanupListener {
         }
         // Also clean config files directly as safety net
         removeWindowLayoutFromConfigFiles()
+    }
+
+    private fun restoreDefaultWindowLayout() {
+        try {
+            val layoutManager = ToolWindowDefaultLayoutManager.getInstance()
+            val defaultLayout = layoutManager.getLayoutCopy()
+            for (project in ProjectManager.getInstance().openProjects) {
+                if (project.isDisposed) continue
+                val twm =
+                    com.intellij.openapi.wm.ToolWindowManager
+                        .getInstance(project)
+                val setLayoutMethod =
+                    twm.javaClass.methods.firstOrNull {
+                        it.name == "setLayout" && it.parameterCount == 1
+                    }
+                if (setLayoutMethod != null) {
+                    setLayoutMethod.invoke(twm, defaultLayout)
+                    LOG.info("DDC: restoreDefaultWindowLayout - restored for ${project.name}")
+                }
+            }
+        } catch (e: Exception) {
+            LOG.warn("DDC: restoreDefaultWindowLayout failed", e)
+        }
     }
 
     private fun removeWindowLayoutFromConfigFiles() {

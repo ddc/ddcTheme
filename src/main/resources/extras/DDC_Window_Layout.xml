@@ -36,8 +36,8 @@
           "contentUiType": "COMBO",
           "isActiveOnStart": true,
           "isVisible": true,
-          "weight": 0.119384766,
-          "sideWeight": 0.50063455
+          "weight": 0.10571289,
+          "sideWeight": 0.5004864
         },
         {
           "id": "Commit",
@@ -47,7 +47,7 @@
         {
           "id": "Database",
           "order": 2,
-          "weight": 0.12558594
+          "weight": 0.12573242
         },
         {
           "id": "Pull Requests",
@@ -57,32 +57,28 @@
         {
           "id": "Structure",
           "order": 4,
-          "weight": 0.12558594,
+          "weight": 0.1027832,
+          "sideWeight": 0.49951363,
           "isSplit": true
         },
         {
           "id": "Coverage",
           "order": 5,
-          "weight": 0.13691406,
+          "weight": 0.09741211,
+          "sideWeight": 0.49951363,
           "isSplit": true
         },
         {
           "id": "Bookmarks",
           "order": 6,
-          "weight": 0.14667968,
-          "sideWeight": 0.49936548,
+          "weight": 0.1027832,
+          "sideWeight": 0.49951363,
           "isSplit": true
         },
         {
           "id": "VcsChanges",
           "order": 7,
-          "weight": 0.3298828
-        },
-        {
-          "id": "Welcome to SonarQube for IDE",
-          "order": 8,
-          "isShowStripeButton": false,
-          "weight": 0.3298828
+          "weight": 0.26391602
         },
         {
           "id": "Database Changes",
@@ -100,11 +96,6 @@
           "isShowStripeButton": false
         },
         {
-          "id": "TODO",
-          "anchor": "BOTTOM",
-          "isShowStripeButton": false
-        },
-        {
           "id": "zeppelin-shell-toolwindow",
           "anchor": "BOTTOM"
         },
@@ -117,15 +108,14 @@
           "id": "Terminal",
           "order": 0,
           "anchor": "BOTTOM",
-          "weight": 0.5058453,
-          "sideWeight": 0.50020176
+          "weight": 0.33228415,
+          "sideWeight": 0.50025225
         },
         {
           "id": "Debug",
           "order": 1,
           "anchor": "BOTTOM",
-          "isShowStripeButton": false,
-          "weight": 0.42410073,
+          "weight": 0.32958633,
           "sideWeight": 0.50020176
         },
         {
@@ -133,58 +123,63 @@
           "order": 2,
           "anchor": "BOTTOM",
           "isShowStripeButton": false,
-          "weight": 0.32985613
+          "weight": 0.32958633
         },
         {
           "id": "Notifications",
           "order": 3,
           "anchor": "BOTTOM",
-          "weight": 0.30467626,
-          "sideWeight": 0.49979824,
-          "isSplit": true
-        },
-        {
-          "id": "Version Control",
-          "order": 4,
-          "anchor": "BOTTOM",
-          "weight": 0.3233813,
-          "sideWeight": 0.49979824,
+          "weight": 0.33228415,
+          "sideWeight": 0.49974772,
           "isSplit": true
         },
         {
           "id": "Problems",
-          "order": 5,
+          "order": 4,
           "anchor": "BOTTOM"
         },
         {
           "id": "Services",
-          "order": 6,
+          "order": 5,
           "anchor": "BOTTOM",
-          "weight": 0.37302157
+          "weight": 0.32778776
         },
         {
           "id": "KafkaToolWindow",
-          "order": 7,
+          "order": 6,
           "anchor": "BOTTOM",
-          "weight": 0.4089928
+          "weight": 0.33228415
         },
         {
-          "id": "PythonProcessOutput",
+          "id": "Version Control",
+          "order": 7,
+          "anchor": "BOTTOM",
+          "weight": 0.3304856,
+          "sideWeight": 0.49979824
+        },
+        {
+          "id": "TODO",
           "order": 8,
           "anchor": "BOTTOM",
           "weight": 0.32958633
         },
         {
-          "id": "Python Console",
+          "id": "PythonProcessOutput",
           "order": 9,
           "anchor": "BOTTOM",
-          "weight": 0.22098854
+          "weight": 0.32958633
+        },
+        {
+          "id": "Python Console",
+          "order": 10,
+          "anchor": "BOTTOM",
+          "weight": 0.32778776
         },
         {
           "id": "Python Packages",
-          "order": 10,
+          "order": 11,
           "anchor": "BOTTOM",
-          "weight": 0.3471223
+          "weight": 0.32958633
         },
         {
           "id": "SonarLint",
@@ -196,20 +191,19 @@
           "id": "SonarQube for IDE",
           "order": 13,
           "anchor": "BOTTOM",
-          "weight": 0.56294966
+          "weight": 0.32958633
         },
         {
           "id": "Problems View",
           "order": 14,
           "anchor": "BOTTOM",
-          "weight": 0.32985613
+          "weight": 0.32958633
         },
         {
           "id": "Find",
           "order": 15,
           "anchor": "BOTTOM",
-          "isShowStripeButton": false,
-          "weight": 0.46079138
+          "weight": 0.33408272
         },
         {
           "id": "GitHub Copilot MCP Log",
@@ -267,48 +261,65 @@
           "weight": 0.1
         },
         {
-          "id": "Jupyter Variables",
+          "id": "Hierarchy",
           "order": 3,
           "anchor": "RIGHT",
-          "weight": 0.3298828,
+          "weight": 0.3659668,
+          "sideWeight": 0.49951363,
+          "isSplit": true
+        },
+        {
+          "id": "Jupyter Variables",
+          "order": 4,
+          "anchor": "RIGHT",
+          "weight": 0.3659668,
+          "sideWeight": 0.49951363,
           "isSplit": true
         },
         {
           "id": "StudioBot",
-          "order": 4,
+          "order": 5,
           "anchor": "RIGHT",
           "weight": 0.3298828
         },
         {
           "id": "GitHub Copilot Chat",
-          "order": 5,
+          "order": 6,
           "anchor": "RIGHT",
           "weight": 0.2748047
         },
         {
           "id": "AIAssistant",
-          "order": 6,
+          "order": 7,
           "anchor": "RIGHT",
-          "isShowStripeButton": false,
-          "weight": 0.3658203
+          "weight": 0.3659668,
+          "sideWeight": 0.5004864
         },
         {
           "id": "github.copilotToolWindow",
-          "order": 7,
+          "order": 8,
           "anchor": "RIGHT",
           "weight": 0.3298828
         },
         {
           "id": "GitHub Coding Agent Jobs",
-          "order": 8,
+          "order": 9,
           "anchor": "RIGHT"
+        },
+        {
+          "id": "Welcome to SonarQube for IDE",
+          "order": 10,
+          "anchor": "RIGHT",
+          "isShowStripeButton": false,
+          "weight": 0.3293457,
+          "isSplit": true
         }
       ],
       "unifiedWeights": {
         "top": 0.33,
-        "left": 0.119384766,
-        "bottom": 0.32958633,
-        "right": 0.3298828
+        "left": 0.10571289,
+        "bottom": 0.33228415,
+        "right": 0.3659668
       }
     }
   }
