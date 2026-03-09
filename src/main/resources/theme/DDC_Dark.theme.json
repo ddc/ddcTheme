@@ -168,7 +168,14 @@
         "border": "BorderLight"
       }
     },
+    "EditorPane.background": "BackgroundDark",
     "EditorPane.inactiveBackground": "BackgroundDark",
+    "Table.background": "BackgroundDark",
+    "TextPane.background": "BackgroundDark",
+    "TextArea.background": "BackgroundDark",
+    "Tree.background": "BackgroundDark",
+    "Viewport.background": "BackgroundDark",
+    "ScrollPane.background": "BackgroundDark",
     "Code.Block": {
       "borderColor": "BorderLight",
       "EditorPane.borderColor": "BorderLight"

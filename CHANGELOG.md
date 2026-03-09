@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.8
+- Fixed popup backgrounds for dark theme
+
 ## v1.0.7
 - Changed both themes to have 'Dark' in their names
 - Window > Layouts > DDC Window Layout

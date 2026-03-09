@@ -134,85 +134,86 @@
           "isSplit": true
         },
         {
-          "id": "Problems",
+          "id": "Version Control",
           "order": 4,
+          "anchor": "BOTTOM",
+          "weight": 0.3304856,
+          "sideWeight": 0.49979824,
+          "isSplit": true
+        },
+        {
+          "id": "Problems",
+          "order": 5,
           "anchor": "BOTTOM"
         },
         {
           "id": "Services",
-          "order": 5,
+          "order": 6,
           "anchor": "BOTTOM",
           "weight": 0.32778776
         },
         {
           "id": "KafkaToolWindow",
-          "order": 6,
+          "order": 7,
           "anchor": "BOTTOM",
           "weight": 0.33228415
         },
         {
-          "id": "Version Control",
-          "order": 7,
-          "anchor": "BOTTOM",
-          "weight": 0.3304856,
-          "sideWeight": 0.49979824
-        },
-        {
           "id": "TODO",
-          "order": 8,
-          "anchor": "BOTTOM",
-          "weight": 0.32958633
-        },
-        {
-          "id": "PythonProcessOutput",
           "order": 9,
           "anchor": "BOTTOM",
           "weight": 0.32958633
         },
         {
-          "id": "Python Console",
+          "id": "PythonProcessOutput",
           "order": 10,
+          "anchor": "BOTTOM",
+          "weight": 0.32958633
+        },
+        {
+          "id": "Python Console",
+          "order": 11,
           "anchor": "BOTTOM",
           "weight": 0.32778776
         },
         {
           "id": "Python Packages",
-          "order": 11,
+          "order": 12,
           "anchor": "BOTTOM",
           "weight": 0.32958633
         },
         {
           "id": "SonarLint",
-          "order": 12,
+          "order": 13,
           "anchor": "BOTTOM",
           "weight": 0.45666188
         },
         {
           "id": "SonarQube for IDE",
-          "order": 13,
-          "anchor": "BOTTOM",
-          "weight": 0.32958633
-        },
-        {
-          "id": "Problems View",
           "order": 14,
           "anchor": "BOTTOM",
           "weight": 0.32958633
         },
         {
-          "id": "Find",
+          "id": "Problems View",
           "order": 15,
+          "anchor": "BOTTOM",
+          "weight": 0.32958633
+        },
+        {
+          "id": "Find",
+          "order": 16,
           "anchor": "BOTTOM",
           "weight": 0.33408272
         },
         {
           "id": "GitHub Copilot MCP Log",
-          "order": 16,
+          "order": 17,
           "anchor": "BOTTOM"
         },
         {
           "id": "Snyk",
-          "order": 17,
+          "order": 18,
           "anchor": "BOTTOM",
           "weight": 0.35935253
         },
@@ -318,7 +319,7 @@
       "unifiedWeights": {
         "top": 0.33,
         "left": 0.10571289,
-        "bottom": 0.33228415,
+        "bottom": 0.3304856,
         "right": 0.3659668
       }
     }
