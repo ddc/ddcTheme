@@ -5,6 +5,7 @@
   "parentTheme": "Islands Dark",
   "editorScheme": "DDC Editor Dark",
   "colors": {
+    "Blue2": "#2E436E",
     "Gray3": "#393B40",
     "Gray2.5": "#323438",
     "Gray2.25": "#2E3033",
@@ -48,10 +49,14 @@
       "borderColor": "BorderDark",
       "separatorColor": "BorderLight",
       "hoverBackground": "HoverBackgroundMid",
-      "selectionBackground": "SelectionActive",
-      "lightSelectionBackground": "SelectionActive",
-      "selectionInactiveBackground": "SelectionInactive",
-      "inactiveBackground": "BackgroundMid"
+      "selectionBackground": "#2E436E",
+      "lightSelectionBackground": "#2E436E",
+      "selectionForeground": "#DFE1E5",
+      "selectionInactiveBackground": "#43454A",
+      "inactiveBackground": "BackgroundMid",
+      "underlineColor": "#3574F0",
+      "inactiveUnderlineColor": "#4E5157",
+      "focusColor": "#3574F0"
     },
     "Islands": 0,
     "Island": {
@@ -142,9 +147,7 @@
     "EditorTabs": {
       "background": "BackgroundDark",
       "underTabsBorderColor": "BackgroundLight",
-      "underlinedBorderColor": "#00000000",
-      "underlinedTabBackground": "BackgroundDark",
-      "inactiveUnderlinedTabBorderColor": "#00000000",
+      "underlinedTabBackground": "Gray1",
       "inactiveUnderlinedTabBackground": "BackgroundDark",
       "inactiveColoredFileBackground": "#191A1C",
       "hoverBackground": "Gray2",
@@ -271,7 +274,17 @@
     },
     "Toolbar.borderColor": "BorderLight",
     "Toolbar.Floating.background": "Gray3",
-    "TabbedPane.hoverColor": "HoverBackgroundMid",
+    "TabbedPane": {
+      "tabHeight": 40,
+      "tabSelectionArc": 4,
+      "hoverColor": "HoverBackgroundMid",
+      "contentAreaColor": "Gray1",
+      "focusColor": "Blue2"
+    },
+    "SegmentedButton": {
+      "selectedButtonColor": "Gray3",
+      "focusedSelectedButtonColor": "#35538F"
+    },
     "Tree.border.compact": "2,8,2,8",
     "Counter": {
       "background": "Gray8",
@@ -687,12 +700,6 @@
       "errorBackground": "#3D3223",
       "errorBorder": "#5E4D33",
       "errorForeground": "#DFE1E5"
-    },
-    "DefaultTabs": {
-      "underlineColor": "#3574F0",
-      "underlineHeight": 3,
-      "underlinedTabBackground": "ToolWindowBackground",
-      "borderColor": "#00000000"
     }
   }
 }

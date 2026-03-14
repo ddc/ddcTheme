@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.9
+- Fixed selected file tabs not showing the selection outline
+
 ## v1.0.8
 - Fixed popup backgrounds for dark theme
 

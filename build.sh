@@ -10,7 +10,7 @@ set -euo pipefail
 # ============================================================================
 # Variables
 # ============================================================================
-PLUGIN_VERSION="1.0.8"
+PLUGIN_VERSION="1.0.9"
 GRADLE_VERSION="9.4.0"
 KOTLIN_VERSION="2.1.0"
 INTELLIJ_PLATFORM_VERSION="2.12.0"
@@ -21,7 +21,7 @@ OUTPUT_FILENAME="DDC-Theme-${PLUGIN_VERSION}.zip"
 # ============================================================================
 WHATS_NEW=$(cat <<'EOF'
 <ul>
-<li>Fixed popup backgrounds for dark theme</li>
+<li>Fixed selected file tabs not showing the selection outline</li>
 </ul>
 
 EOF
