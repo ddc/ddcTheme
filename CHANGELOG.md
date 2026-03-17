@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.10
+- Changed type-hints background to dark gray "2d2d2d"
+
 ## v1.0.9
 - Fixed selected file tabs not showing the selection outline
 

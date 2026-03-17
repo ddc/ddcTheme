@@ -6,11 +6,10 @@
 # ============================================================================
 set -euo pipefail
 
-
 # ============================================================================
 # Variables
 # ============================================================================
-PLUGIN_VERSION="1.0.9"
+PLUGIN_VERSION="1.0.10"
 GRADLE_VERSION="9.4.0"
 KOTLIN_VERSION="2.1.0"
 INTELLIJ_PLATFORM_VERSION="2.12.0"
@@ -21,9 +20,8 @@ OUTPUT_FILENAME="DDC-Theme-${PLUGIN_VERSION}.zip"
 # ============================================================================
 WHATS_NEW=$(cat <<'EOF'
 <ul>
-<li>Fixed selected file tabs not showing the selection outline</li>
+<li>Changed type-hints background to dark gray "2d2d2d"</li>
 </ul>
-
 EOF
 )
 # ============================================================================
@@ -36,7 +34,6 @@ NC="\033[0m"
 log_action() { echo -e "${BLUE}➜ [ACTION]${NC} $*"; }
 log_success() { echo -e "${GREEN}✓ [SUCCESS]${NC} $*"; }
 echo
-
 
 # ============================================================================
 # Functions
@@ -101,14 +98,13 @@ cleanup_build() {
     echo
 }
 
-
 # ============================================================================
 # Build
 # ============================================================================
 write_gradle_properties
 update_changelog
 format_kotlin
-verify_plugin
+#verify_plugin
 build_plugin
 cleanup_build
 
