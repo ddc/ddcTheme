@@ -11,12 +11,11 @@
         DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, Key Maps, Code Style, Window Layout, and Selection Occurrence Highlighting.
         <br/><br/>
         <b>Getting Started</b><br/>
-        UI Theme, Editor Theme, and Key Maps apply automatically after install and restart.
+        UI Theme, Editor Theme, Key Maps and Code Style will all apply automatically after install and restart.
         <br/><br/>
         Optional extras (installed but not activated):
         <ul>
-            <li><b>Window Layout</b> — Window > Layouts > DDC Window Layout > <b>Restore</b></li>
-            <li><b>Code Style</b> — Settings > Editor > Code Style > select <b>DDC Code Style</b></li>
+            <li><b>Window Layout</b> — Window > Layouts > DDC Window Layout > <b>Apply/Restore</b></li>
             <li><b>Selection Highlighting</b> — Settings > Tools > DDC Theme</li>
         </ul>
     ]]></description>
