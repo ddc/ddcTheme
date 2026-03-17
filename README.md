@@ -7,7 +7,7 @@
 <p align="center">
     <a href="https://github.com/sponsors/ddc"><img src="https://img.shields.io/static/v1?style=plastic&label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=ff69b4" alt="Sponsor"/></a>
     <br>
-    <a href="https://ko-fi.com/ddcsta"><img src="https://img.shields.io/badge/Ko--fi-ddcsta-FF5E5B?style=plastic&logo=kofi&logoColor=white&color=brightgreen" alt="Ko-fi"/></a>
+    <a href="https://ko-fi.com/ddc"><img src="https://img.shields.io/badge/Ko--fi-ddcsta-FF5E5B?style=plastic&logo=kofi&logoColor=white&color=brightgreen" alt="Ko-fi"/></a>
     <a href="https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ"><img src="https://img.shields.io/badge/Donate-PayPal-brightgreen.svg?style=plastic&logo=paypal&logoColor=white" alt="Donate"/></a>
     <br>
     <a href="https://plugins.jetbrains.com/plugin/30414-ddc-theme"><img src="https://img.shields.io/jetbrains/plugin/d/30414?style=plastic&logo=jetbrains&logoColor=white" alt="Marketplace Downloads"/></a>
@@ -23,6 +23,7 @@
 
 <p align="center">📦 <b><a href="https://plugins.jetbrains.com/plugin/30414-ddc-theme">Install from JetBrains Marketplace</a></b> 📦 </p>
 
+
 # Table of Contents
 
 - [Screenshot](#screenshot)
@@ -37,11 +38,13 @@
 - [License](#license)
 - [Support](#support)
 
+
 # Screenshot
 
 <p align="left">
   <img src="assets/example_bash.png" alt="Editor Theme">
 </p>
+
 
 # Features
 
@@ -55,6 +58,7 @@
 | Window Layout               | Tool window arrangement and positions                                                                          |
 | Selection Highlighting      | Highlights all occurrences of selected text (disabled by default — enable in **Settings > Tools > DDC Theme**) |
 | Install/Update Notification | Shows what's new on first install or after an update                                                           |
+
 
 # Installation
 
@@ -70,6 +74,7 @@
 2. Go to **Settings > Plugins > Install Plugin from Disk...**
 3. Select the downloaded `.zip` file and restart the IDE
 
+
 # Getting Started
 
 After install and restart, the **UI Theme**, **Editor Theme**, and **Keymaps** are applied automatically.
@@ -83,6 +88,7 @@ The following extras are installed but not activated — enable them if you'd li
 
 > **Note:** All settings are removed automatically when the plugin is uninstalled.
 
+
 # Building
 
 Requires JDK 21.
@@ -94,6 +100,7 @@ Requires JDK 21.
 The script formats Kotlin sources (if `ktlint` is available), verifies the plugin, and builds `DDC-Theme-<version>.zip`
 inside the `build/` directory.
 Plugin settings (`VERSION`, `MIN_PLATFORM_VERSION`, `WHATS_NEW`) are configured at the top of `build.sh`.
+
 
 # Keymaps Changes
 
@@ -126,6 +133,7 @@ The following default shortcuts are removed to avoid conflicts:
 | Edit Arrangement Rule     | `F2`             |
 | Copy Element              | `F5`             |
 | Route Edges (Graph)       | `F5`             |
+
 
 # Version Control File Status Colors
 
@@ -164,14 +172,16 @@ The following default shortcuts are removed to avoid conflicts:
 </tr>
 </table>
 
+
 # License
 
-Released under the [Apache License 2.0](https://github.com/ddc/JetbrainsTheme/blob/master/LICENSE)
+This project is licensed under the [Apache 2.0 License](LICENSE).
+
 
 # Support
 
 If you find this project helpful, consider supporting development:
 
-- [GitHub Sponsor](https://github.com/sponsors/ddc)
-- [ko-fi](https://ko-fi.com/ddcsta)
-- [PayPal](https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ)
+<a href='https://github.com/sponsors/ddc' target='_blank'><img height='28' style='border:0px;height:28px;' src='https://img.shields.io/badge/Sponsor-❤-ea4aaa?style=plastic&logo=github&logoColor=white' border='0' alt='Sponsor on GitHub' /></a>
+<a href='https://ko-fi.com/ddc' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a href='https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://www.paypalobjects.com/digitalassets/c/website/marketing/apac/C2/logos-buttons/optimize/44_Yellow_PayPal_Pill_Button.png' border='0' alt='Donate via PayPal' /></a>
