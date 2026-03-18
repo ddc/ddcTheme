@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.11
+- Fixed Ko-fi url
+
 ## v1.0.10
 - Changed type-hints background to dark gray "2d2d2d"
 

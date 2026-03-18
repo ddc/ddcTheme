@@ -94,12 +94,12 @@ The following extras are installed but not activated — enable them if you'd li
 Requires JDK 21.
 
 ```bash
-./build.sh
+./build.sh                  # build only
+./build.sh [-v|--verify]    # build with plugin verification
 ```
 
-The script formats Kotlin sources (if `ktlint` is available), verifies the plugin, and builds `DDC-Theme-<version>.zip`
-inside the `build/` directory.
-Plugin settings (`VERSION`, `MIN_PLATFORM_VERSION`, `WHATS_NEW`) are configured at the top of `build.sh`.
+The script formats Kotlin sources (if `ktlint` is available) and builds `DDC-Theme-<version>.zip` inside the `build/` directory.
+Plugin settings and variables are configured at the top of `build.sh`.
 
 
 # Keymaps Changes
