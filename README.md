@@ -182,6 +182,6 @@ This project is licensed under the [Apache 2.0 License](LICENSE).
 
 If you find this project helpful, consider supporting development:
 
-<a href='https://github.com/sponsors/ddc' target='_blank'><img height='28' style='border:0px;height:28px;' src='https://img.shields.io/badge/Sponsor-❤-ea4aaa?style=plastic&logo=github&logoColor=white' border='0' alt='Sponsor on GitHub' /></a>
-<a href='https://ko-fi.com/ddc' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-<a href='https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://www.paypalobjects.com/digitalassets/c/website/marketing/apac/C2/logos-buttons/optimize/44_Yellow_PayPal_Pill_Button.png' border='0' alt='Donate via PayPal' /></a>
+<a href='https://github.com/sponsors/ddc' target='_blank'><img height='24' style='border:0px;height:24px;' src='https://img.shields.io/badge/Sponsor-❤-ea4aaa?style=plastic&logo=github&logoColor=white' border='0' alt='Sponsor on GitHub' /></a>
+<a href='https://ko-fi.com/ddc' target='_blank'><img height='30' style='border:0px;height:30px;' src='https://storage.ko-fi.com/cdn/kofi2.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+<a href='https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ' target='_blank'><img height='30' style='border:0px;height:30px;' src='https://www.paypalobjects.com/digitalassets/c/website/marketing/apac/C2/logos-buttons/optimize/44_Yellow_PayPal_Pill_Button.png' border='0' alt='Donate via PayPal' /></a>
