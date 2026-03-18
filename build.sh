@@ -3,13 +3,15 @@
 # Automated script to build the plugin and register changes on the changelog file
 # DDC Softwares (daniel@ddcsoftwares.com)
 # https://plugins.jetbrains.com/plugin/30414-ddc-theme
+# Usage: ./build.sh [-v|--verify]
+#   -v, --verify  Run plugin verification before building
 # ============================================================================
 set -euo pipefail
 
 # ============================================================================
 # Variables
 # ============================================================================
-PLUGIN_VERSION="1.0.10"
+PLUGIN_VERSION="1.0.11"
 GRADLE_VERSION="9.4.0"
 KOTLIN_VERSION="2.1.0"
 INTELLIJ_PLATFORM_VERSION="2.12.0"
@@ -20,11 +22,17 @@ OUTPUT_FILENAME="DDC-Theme-${PLUGIN_VERSION}.zip"
 # ============================================================================
 WHATS_NEW=$(cat <<'EOF'
 <ul>
-<li>Changed type-hints background to dark gray "2d2d2d"</li>
+<li>Fixed Ko-fi url</li>
 </ul>
 EOF
 )
 # ============================================================================
+RUN_VERIFY=false
+for arg in "$@"; do
+    case "$arg" in
+        -v|--verify) RUN_VERIFY=true ;;
+    esac
+done
 pushd "$(dirname "${BASH_SOURCE[0]}")" > /dev/null
 export JAVA_HOME
 # ============================================================================
@@ -85,6 +93,7 @@ verify_plugin() {
 
 build_plugin() {
     log_action "Building plugin..."
+    rm -f "build/${OUTPUT_FILENAME}"
     ./gradlew buildPlugin -q
 }
 
@@ -104,7 +113,7 @@ cleanup_build() {
 write_gradle_properties
 update_changelog
 format_kotlin
-verify_plugin
+[[ "$RUN_VERIFY" == true ]] && verify_plugin
 build_plugin
 cleanup_build
 

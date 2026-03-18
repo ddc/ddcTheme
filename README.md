@@ -23,7 +23,6 @@
 
 <p align="center">📦 <b><a href="https://plugins.jetbrains.com/plugin/30414-ddc-theme">Install from JetBrains Marketplace</a></b> 📦 </p>
 
-
 # Table of Contents
 
 - [Screenshot](#screenshot)
@@ -38,13 +37,11 @@
 - [License](#license)
 - [Support](#support)
 
-
 # Screenshot
 
 <p align="left">
   <img src="assets/example_bash.png" alt="Editor Theme">
 </p>
-
 
 # Features
 
@@ -58,7 +55,6 @@
 | Window Layout               | Tool window arrangement and positions                                                                          |
 | Selection Highlighting      | Highlights all occurrences of selected text (disabled by default — enable in **Settings > Tools > DDC Theme**) |
 | Install/Update Notification | Shows what's new on first install or after an update                                                           |
-
 
 # Installation
 
@@ -74,7 +70,6 @@
 2. Go to **Settings > Plugins > Install Plugin from Disk...**
 3. Select the downloaded `.zip` file and restart the IDE
 
-
 # Getting Started
 
 After install and restart, the **UI Theme**, **Editor Theme**, and **Keymaps** are applied automatically.
@@ -88,19 +83,18 @@ The following extras are installed but not activated — enable them if you'd li
 
 > **Note:** All settings are removed automatically when the plugin is uninstalled.
 
-
 # Building
 
 Requires JDK 21.
 
 ```bash
-./build.sh
+./build.sh                  # build only
+./build.sh [-v|--verify]    # build with plugin verification
 ```
 
-The script formats Kotlin sources (if `ktlint` is available), verifies the plugin, and builds `DDC-Theme-<version>.zip`
-inside the `build/` directory.
-Plugin settings (`VERSION`, `MIN_PLATFORM_VERSION`, `WHATS_NEW`) are configured at the top of `build.sh`.
-
+The script formats Kotlin sources (if `ktlint` is available) and builds `DDC-Theme-<version>.zip` inside the
+`build/` directory.
+Plugin settings and variables are configured at the top of `build.sh`.
 
 # Keymaps Changes
 
@@ -133,7 +127,6 @@ The following default shortcuts are removed to avoid conflicts:
 | Edit Arrangement Rule     | `F2`             |
 | Copy Element              | `F5`             |
 | Route Edges (Graph)       | `F5`             |
-
 
 # Version Control File Status Colors
 
@@ -172,11 +165,9 @@ The following default shortcuts are removed to avoid conflicts:
 </tr>
 </table>
 
-
 # License
 
 This project is licensed under the [Apache 2.0 License](LICENSE).
-
 
 # Support
 

@@ -3,21 +3,20 @@
     <name>DDC Theme</name>
     <vendor email="daniel@ddcsoftwares.com" url="https://github.com/ddc/JetbrainsTheme">DDC Softwares</vendor>
     <description><![CDATA[
-        <a href="https://github.com/ddc/JetbrainsTheme">GitHub</a> |
         <a href="https://github.com/sponsors/ddc">GitHub Sponsors</a> |
-        <a href="https://ko-fi.com/ddcsta">Ko-fi</a> |
+        <a href="https://ko-fi.com/ddc">Ko-fi</a> |
         <a href="https://www.paypal.com/ncp/payment/6G9Z78QHUD4RJ">PayPal</a>
         <br/><br/>
         DDC Theme for JetBrains IDEs based on Atom dark colors. Includes UI Theme, Editor Theme, VCS Colors, Key Maps, Code Style, Window Layout, and Selection Occurrence Highlighting.
         <br/><br/>
-        <b>Getting Started</b><br/>
-        UI Theme, Editor Theme, Key Maps and Code Style will all apply automatically after install and restart.
-        <br/><br/>
-        Optional extras (installed but not activated):
+        <b>Optional extras (installed but not activated):</b>
         <ul>
             <li><b>Window Layout</b> — Window > Layouts > DDC Window Layout > <b>Apply/Restore</b></li>
             <li><b>Selection Highlighting</b> — Settings > Tools > DDC Theme</li>
         </ul>
+        <br/><br/>
+        <b>Settings</b><br/>
+        Settings &gt; Tools &gt; DDC Theme
     ]]></description>
     <depends>com.intellij.modules.platform</depends>
     <extensions defaultExtensionNs="com.intellij">
