@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.12
+- Fixed Ko-fi url
+
+
 ## v1.0.11
 - Fixed Ko-fi url
 
