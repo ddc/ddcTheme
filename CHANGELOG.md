@@ -1,8 +1,8 @@
 # Changelog
 
 ## v1.0.12
-- Fixed Ko-fi url
-
+- Fixed debugger hover background showing white
+- Updated code style indents to match community conventions
 
 ## v1.0.11
 - Fixed Ko-fi url
