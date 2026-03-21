@@ -22,7 +22,8 @@ OUTPUT_FILENAME="DDC-Theme-${PLUGIN_VERSION}.zip"
 # ============================================================================
 WHATS_NEW=$(cat <<'EOF'
 <ul>
-<li>Fixed Ko-fi url</li>
+<li>Fixed debugger hover background showing white</li>
+<li>Updated code style indents to match community conventions</li>
 </ul>
 EOF
 )
